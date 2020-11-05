@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:history_quizz/widgets/subject_cards.dart';
+import 'package:history_quizz/widgets/drawer_list.dart';
+import 'package:history_quizz/widgets/box_title.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -13,16 +14,7 @@ class _WelcomePage extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                child: Text("Header"),
-              ),
-              ListTile(
-                title: Text("Home"),
-              )
-            ],
-          ),
+          child: DrawerList(),
         ),
         appBar: AppBar(
             leading: Padding(
@@ -48,36 +40,27 @@ class _WelcomePage extends State<WelcomePage> {
                     padding: EdgeInsets.only(top: 70.0),
                   ),
                   Center(
-                    child: Container(
-                      height: 60.0,
-                      width: 320.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(23.0),
-                        color: Color(0xFF393737),
-                        border: Border.all(
-                          color: Color(0xFFFFFFFF),
-                          width: 3.0,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Lịch Sử Việt Nam',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.lato(
-                              fontSize: 37.0, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
+                    child: BoxTitle(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40.0),
                   ),
                   Center(
-                    child: SubjectCard(
-                      subjectImage: Colors.blue,
-                      cardChild: Text('data'),
-                    ),
-                  ),
+                      child: Column(
+                    children: <Widget>[
+                      SubjectCard(
+                        cardImage: Image.asset('images/thoitiensu.jpg'),
+                      ),
+                    ],
+                  )),
                 ]),
           ),
         ));
   }
 }
+
+
+
+
+
+
