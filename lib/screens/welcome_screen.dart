@@ -50,6 +50,32 @@ class _WelcomePage extends State<WelcomePage> {
                     children: <Widget>[
                       SubjectCard(
                         cardImage: Image.asset('images/thoitiensu.jpg'),
+                        cardText: 'Thời kỳ Tiền Sử',
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 40.0)),
+                      SubjectCard(
+                        cardImage: Image.asset('images/thoihongbang.jpg'),
+                        cardText: 'Thời kỳ Hồng Bàng',
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 40.0)),
+                      SubjectCard(
+                        cardImage: Image.asset('images/thoibacthuoc.jpg'),
+                        cardText: 'Thời kỳ Bắc thuộc',
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 40.0)),
+                      SubjectCard(
+                        cardImage: Image.asset('images/thoiphongkien.jpg'),
+                        cardText: 'Thời kỳ Phong kiến',
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 40.0)),
+                      SubjectCard(
+                        cardImage: Image.asset('images/thoiphapthuoc.jpg'),
+                        cardText: 'Thời kỳ Pháp thuộc',
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 40.0)),
+                      SubjectCard(
+                        cardImage: Image.asset('images/thoidoimoi.jpg'),
+                        cardText: 'Thời kỳ đổi mới',
                       ),
                     ],
                   )),
@@ -58,9 +84,3 @@ class _WelcomePage extends State<WelcomePage> {
         ));
   }
 }
-
-
-
-
-
-
