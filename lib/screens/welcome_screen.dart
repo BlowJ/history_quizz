@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:history_quizz/widgets/subject_cards.dart';
 import 'package:history_quizz/widgets/drawer_list.dart';
 import 'package:history_quizz/widgets/box_title.dart';
+import 'package:history_quizz/screens/bac_thuoc_screen.dart';
+import 'package:history_quizz/screens/doi_moi_screen.dart';
+import 'package:history_quizz/screens/hong_bang_screen.dart';
+import 'package:history_quizz/screens/phap_thuoc_screen.dart';
+import 'package:history_quizz/screens/phong_kiren_screen.dart';
+import 'package:history_quizz/screens/tien_su_screen.dart';
 
 class WelcomePage extends StatefulWidget {
+  static const String id = 'welcome_screen';
+
   @override
   _WelcomePage createState() => _WelcomePage();
 }
@@ -51,6 +59,9 @@ class _WelcomePage extends State<WelcomePage> {
                       SubjectCard(
                         cardImage: Image.asset('images/thoitiensu.jpg'),
                         cardText: 'Thời kỳ Tiền Sử',
+                        onPressed: () {
+                          Navigator.pushNamed(context, TienSu.id);
+                        },
                       ),
                       Padding(padding: EdgeInsets.only(top: 40.0)),
                       SubjectCard(
