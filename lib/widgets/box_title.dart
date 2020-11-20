@@ -14,7 +14,7 @@ class BoxTitle extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(23.0),
-        color: Color(0xFF393737),
+        color: Color(0xFF0E1321),
         border: Border.all(
           color: Color(0xFFFFFFFF),
           width: 3.0,

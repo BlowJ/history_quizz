@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^0.1.3
   provider: ^4.3.2+2
   google_fonts: ^1.1.1
+  curved_drawer: ^0.1.2
+
 
 
 dev_dependencies:

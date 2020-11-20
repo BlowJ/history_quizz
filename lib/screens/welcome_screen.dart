@@ -22,8 +22,10 @@ class _WelcomePage extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: Drawer(
+          elevation: 20.0,
           child: DrawerList(),
         ),
+
         appBar: AppBar(
             leading: Padding(
           padding: EdgeInsets.only(left: 20.0, top: 10.0),
@@ -88,6 +90,7 @@ class _WelcomePage extends State<WelcomePage> {
                         cardImage: Image.asset('images/thoidoimoi.jpg'),
                         cardText: 'Thời kỳ đổi mới',
                       ),
+                      Padding(padding: EdgeInsets.only(bottom: 40.0)),
                     ],
                   )),
                 ]),
