@@ -22,18 +22,17 @@ class _WelcomePage extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: Drawer(
-          elevation: 20.0,
+          elevation: 100.0,
           child: DrawerList(),
         ),
-
         appBar: AppBar(
             leading: Padding(
-          padding: EdgeInsets.only(left: 20.0, top: 10.0),
+              padding: EdgeInsets.only(left: 10.0, top: 5.0),
           child: Builder(
             builder: (context) => IconButton(
                 icon: Icon(
                   Icons.dehaze,
-                  size: 50.0,
+                  size: 40.0,
                 ),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();

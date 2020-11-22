@@ -5,6 +5,8 @@ import 'package:history_quizz/screens/tien_su_screen.dart';
 import 'package:history_quizz/widgets/answer_cards.dart';
 import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:history_quizz/widgets/header.dart';
+import 'package:provider/provider.dart';
+import 'package:history_quizz/models/quizz_brain.dart';
 
 class TienSu extends StatefulWidget {
   static const String id = 'tien_su_screen';
@@ -28,16 +30,12 @@ class _TienSuState extends State<TienSu> {
                 timeRemain: '30',
                 lifeRemain: '10',
               ),
-              QuestionCard(
-                questionNumber: 'Câu 1',
-                questionText:
-                    'Cho đến nay, các nhà khảo cổ học đã tìm thấy dấu vết của người vượn Homo erectus trong một số hang động ở đâu ?',
-              ),
+              Provider.of<QuizzData>(context).question[0],
               Padding(padding: EdgeInsets.only(top: 35.0)),
-              AnswerCard(answerText: 'Lạng Sơn'),
-              AnswerCard(answerText: 'Hà Nội'),
-              AnswerCard(answerText: 'Lào Cai'),
-              AnswerCard(answerText: 'Phú Yên'),
+              Provider.of<QuizzData>(context).answer[0],
+              Provider.of<QuizzData>(context).answer[1],
+              Provider.of<QuizzData>(context).answer[2],
+              Provider.of<QuizzData>(context).answer[3],
             ],
           ),
         )),
