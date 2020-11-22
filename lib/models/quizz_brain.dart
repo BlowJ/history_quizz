@@ -6,6 +6,7 @@ import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:history_quizz/widgets/answer_cards.dart';
 
 class QuizzData extends ChangeNotifier {
+  static int index = 0;
   List<QuestionCard> _q = [
     QuestionCard(
       questionNumber: 'Câu 1',
@@ -20,9 +21,7 @@ class QuizzData extends ChangeNotifier {
   ];
 
   List<AnswerCard> _a = [
-    AnswerCard(
-      answerText: 'Lạng Sơn',
-    ),
+    AnswerCard(answerText: 'Lạng Sơn'),
     AnswerCard(answerText: 'Hà Nội'),
     AnswerCard(answerText: 'Lào Cai'),
     AnswerCard(answerText: 'Phú Yên'),
@@ -42,9 +41,8 @@ class QuizzData extends ChangeNotifier {
   // }
   void checkAnswer(String a) {
     if (a == 'Lạng Sơn') {
-      question[0].questionNumber = 'Câu 2';
-      question[0].questionText =
-          'Con người đã sử dụng nhiều loại công cụ bằng đá có chức năng riêng; biết làm đồ gốm, trồng trọt sơ khai, từ giã hái lượm để sản xuất vào thởi điểm nào ?';
+      question[index].questionNumber = question[index + 1].questionNumber;
+      question[index].questionText = question[index + 1].questionText;
       answer[0].answerText = 'Khoảng 6000 - 10000 năm trước';
       answer[1].answerText = 'Khoảng 4000 - 10000 năm trước';
       answer[2].answerText = 'Khoảng 2000 - 5000 năm trước';
@@ -54,5 +52,17 @@ class QuizzData extends ChangeNotifier {
     } else {
       print('err');
     }
+  }
+
+  void resetQuestion(int i) {
+    question[index].questionNumber = 'Câu 1';
+    question[index].questionText =
+    'Cho đến nay, các nhà khảo cổ học đã tìm thấy dấu vết của người vượn Homo erectus trong một số hang động ở đâu ?';
+    answer[0].answerText = 'Lạng Sơn';
+    answer[1].answerText = 'Hà Nội';
+    answer[2].answerText = 'Lào Cai';
+    answer[3].answerText = 'Phú Yên';
+    print(_q);
+    notifyListeners();
   }
 }
