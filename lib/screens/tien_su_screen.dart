@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/screens/tien_su_screen.dart';
 import 'package:history_quizz/widgets/answer_cards.dart';
+import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:history_quizz/widgets/header.dart';
 import 'package:provider/provider.dart';
@@ -28,29 +29,16 @@ class _TienSuState extends State<TienSu> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-                  Header(
-                    timeRemain: '30',
-                    lifeRemain: '10',
-                  ),
-                  Provider
-                      .of<QuizzData>(context)
-                      .question[index],
-                  Padding(padding: EdgeInsets.only(top: 35.0)),
-                  Provider
-                      .of<QuizzData>(context)
-                      .answer[0],
-                  Provider
-                      .of<QuizzData>(context)
-                      .answer[1],
-                  Provider
-                      .of<QuizzData>(context)
-                      .answer[2],
-                  Provider
-                      .of<QuizzData>(context)
-                      .answer[3],
-                ],
+              Header(
+                timeRemain: '30',
+                lifeRemain: '10',
               ),
-            )),
+              Provider.of<QuizzData>(context).question[QuizzData.index],
+              Padding(padding: EdgeInsets.only(top: 35.0)),
+              Provider.of<QuizzData>(context).answer[QuizzData.index],
+            ],
+          ),
+        )),
       ),
     );
   }

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/widgets/question_cards.dart';
+import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:provider/provider.dart';
 
 class AnswerCard extends StatelessWidget {
-  AnswerCard({this.answerText, this.checkAnswer});
+  AnswerCard({Key key, @required this.answer}) : super(key: key);
 
-  @override
-  String answerText;
-  Function checkAnswer;
+  String answer;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizzData>(
       builder: (context, quizzdata, child) {
         return GestureDetector(
+          onTap: () {
+            quizzdata.checkAnswer(answer);
+          },
           child: Container(
             margin: EdgeInsets.only(bottom: 27.0),
             width: double.infinity,
@@ -30,7 +31,7 @@ class AnswerCard extends StatelessWidget {
               ),
             ),
             child: Text(
-              answerText,
+              answer,
               style: TextStyle(
                 fontSize: 20.0,
                 color: Color(0xFFFFFFFF),
@@ -45,9 +46,6 @@ class AnswerCard extends StatelessWidget {
               ),
             ),
           ),
-          onTap: () {
-            quizzdata.checkAnswer(answerText);
-          },
         );
       },
     );

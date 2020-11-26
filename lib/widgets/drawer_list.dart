@@ -100,7 +100,7 @@ class _DrawerList extends State<DrawerList> {
                           titleText: 'Chơi lại',
                           onClick: () {
                             setState(() {
-                              quizzdata.resetQuestion(0);
+                              quizzdata.resetQuizz();
                             });
                           },
                         ),
@@ -120,6 +120,4 @@ class _DrawerList extends State<DrawerList> {
       },
     );
   }
-
-
 }

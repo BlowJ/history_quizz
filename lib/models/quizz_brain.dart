@@ -1,9 +1,10 @@
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:history_quizz/widgets/answer_cards.dart';
 import 'package:provider/provider.dart';
 import 'package:history_quizz/widgets/question_cards.dart';
-import 'package:history_quizz/widgets/answer_cards.dart';
+import 'package:history_quizz/widgets/answer_list.dart';
 
 class QuizzData extends ChangeNotifier {
   static int index = 0;
@@ -20,11 +21,21 @@ class QuizzData extends ChangeNotifier {
     ),
   ];
 
-  List<AnswerCard> _a = [
-    AnswerCard(answerText: 'Lạng Sơn'),
-    AnswerCard(answerText: 'Hà Nội'),
-    AnswerCard(answerText: 'Lào Cai'),
-    AnswerCard(answerText: 'Phú Yên'),
+  List<AnswerList> _a = [
+    AnswerList(
+      answerText1: AnswerCard(answer: 'Lạng Sơn'),
+      answerText2: AnswerCard(answer: 'Hà Nội'),
+      answerText3: AnswerCard(answer: 'Lào Cai'),
+      answerText4: AnswerCard(answer: 'Phú Yên'),
+      correctAnswer: 'Lạng Sơn',
+    ),
+    AnswerList(
+      answerText1: AnswerCard(answer: 'Khoảng 6000 - 10000 năm trước'),
+      answerText2: AnswerCard(answer: 'Khoảng 4000 - 10000 năm trước'),
+      answerText3: AnswerCard(answer: 'Khoảng 2000 - 5000 năm trước'),
+      answerText4: AnswerCard(answer: 'Khoảng 2000 - 6000 năm trước'),
+      correctAnswer: 'Khoảng 2000 - 6000 năm trước',
+    ),
   ];
 
   get question {
@@ -35,34 +46,21 @@ class QuizzData extends ChangeNotifier {
     return _a;
   }
 
-  // set newQuestion (String newN, String newT){
-  //    question.questionNumber = newN;
-  //    question.questionText = newT;
-  // }
-  void checkAnswer(String a) {
-    if (a == 'Lạng Sơn') {
-      question[index].questionNumber = question[index + 1].questionNumber;
-      question[index].questionText = question[index + 1].questionText;
-      answer[0].answerText = 'Khoảng 6000 - 10000 năm trước';
-      answer[1].answerText = 'Khoảng 4000 - 10000 năm trước';
-      answer[2].answerText = 'Khoảng 2000 - 5000 năm trước';
-      answer[3].answerText = 'Khoảng 2000 - 6000 năm trước';
-      // print('ok');
-      notifyListeners();
-    } else {
-      print('err');
-    }
+  bool checkAnswer(String a) {
+    if (a == answer[index].correctAnswer) {
+      print('Right');
+
+      if (index >= _q.length - 1) {
+        return true;
+      } else
+        index++;
+    } else
+      print('Wrong');
+    notifyListeners();
   }
 
-  void resetQuestion(int i) {
-    question[index].questionNumber = 'Câu 1';
-    question[index].questionText =
-    'Cho đến nay, các nhà khảo cổ học đã tìm thấy dấu vết của người vượn Homo erectus trong một số hang động ở đâu ?';
-    answer[0].answerText = 'Lạng Sơn';
-    answer[1].answerText = 'Hà Nội';
-    answer[2].answerText = 'Lào Cai';
-    answer[3].answerText = 'Phú Yên';
-    print(_q);
-    notifyListeners();
+  bool resetQuizz() {
+    index = 0;
+    return true;
   }
 }
