@@ -73,6 +73,7 @@ class _DrawerList extends State<DrawerList> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: ListView(
+                      shrinkWrap: true,
                       children: <Widget>[
                         DrawerListTitle(
                           pColor: pColor,
@@ -101,6 +102,7 @@ class _DrawerList extends State<DrawerList> {
                           onClick: () {
                             setState(() {
                               quizzdata.resetQuizz();
+                              Navigator.pop(context);
                             });
                           },
                         ),

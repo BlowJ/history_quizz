@@ -8,6 +8,7 @@ import 'package:history_quizz/widgets/answer_list.dart';
 
 class QuizzData extends ChangeNotifier {
   static int index = 0;
+  int score = 0;
   List<QuestionCard> _q = [
     QuestionCard(
       questionNumber: 'Câu 1',
@@ -54,8 +55,12 @@ class QuizzData extends ChangeNotifier {
         return true;
       } else
         index++;
-    } else
+      score++;
+    } else {
       print('Wrong');
+      score--;
+    }
+
     notifyListeners();
   }
 
