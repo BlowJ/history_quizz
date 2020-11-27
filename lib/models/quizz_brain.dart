@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:history_quizz/widgets/answer_list.dart';
 class QuizzData extends ChangeNotifier {
   static int index = 0;
   int score = 0;
+  int timer = 150;
+
   List<QuestionCard> _q = [
     QuestionCard(
       questionNumber: 'Câu 1',
@@ -50,22 +53,40 @@ class QuizzData extends ChangeNotifier {
   bool checkAnswer(String a) {
     if (a == answer[index].correctAnswer) {
       print('Right');
-
-      if (index >= _q.length - 1) {
-        return true;
-      } else
-        index++;
-      score++;
+      isPass();
+      isFinished();
+      notifyListeners();
+      return true;
     } else {
-      print('Wrong');
       score--;
+      print('Wrong');
+      if (score <= 0) {
+        score = 0;
+      }
+      notifyListeners();
+      return false;
     }
-
-    notifyListeners();
   }
 
   bool resetQuizz() {
     index = 0;
+    score = 0;
     return true;
+  }
+
+  bool isFinished() {
+    if (index >= _q.length - 1) {
+      return true;
+    } else {
+      index++;
+      return false;
+    }
+  }
+
+  isPass() {
+    if (score == _q.length) {
+      score = _q.length;
+    } else
+      score++;
   }
 }

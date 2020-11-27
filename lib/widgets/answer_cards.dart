@@ -1,12 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
+import 'package:history_quizz/widgets/endDialog.dart';
+import 'package:history_quizz/widgets/subject_cards.dart';
 import 'package:provider/provider.dart';
+import 'package:emojis/emojis.dart';
+import 'package:emojis/emoji.dart';
 
 class AnswerCard extends StatelessWidget {
   AnswerCard({Key key, @required this.answer}) : super(key: key);
 
   String answer;
+  Emoji smile = Emoji.byName('Slightly Smiling Face');
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +22,13 @@ class AnswerCard extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             quizzdata.checkAnswer(answer);
+
+            if ((QuizzData.index >= quizzdata.answer.length - 1) &&
+                (answer == QuizzData().answer[QuizzData.index].correctAnswer)) {
+              showDialog(
+                  context: context, builder: (_) => EndDialog(smile: smile));
+            }
+            ;
           },
           child: Container(
             margin: EdgeInsets.only(bottom: 27.0),
@@ -50,4 +64,6 @@ class AnswerCard extends StatelessWidget {
       },
     );
   }
+
+  a() {}
 }

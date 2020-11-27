@@ -21,7 +21,7 @@ class TienSu extends StatefulWidget {
 class _TienSuState extends State<TienSu> {
   int index = 0;
   Timer _timer;
-  int _start = 30;
+  int _start = QuizzData().timer;
 
   void startTimer() {
     if (_timer != null) {
@@ -30,16 +30,15 @@ class _TienSuState extends State<TienSu> {
     } else {
       _timer = new Timer.periodic(
         const Duration(seconds: 1),
-            (Timer timer) =>
-            setState(
-                  () {
-                if (_start < 1) {
-                  timer.cancel();
-                } else {
-                  _start = _start - 1;
-                }
-              },
-            ),
+        (Timer timer) => setState(
+          () {
+            if (_start < 1) {
+              timer.cancel();
+            } else {
+              _start = _start - 1;
+            }
+          },
+        ),
       );
     }
   }
@@ -85,7 +84,6 @@ class _TienSuState extends State<TienSu> {
           ),
         );
       },
-
     );
   }
 }
