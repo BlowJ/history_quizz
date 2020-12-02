@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
+import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 
 class EndDialog extends StatelessWidget {
-  const EndDialog({
-    Key key,
-    @required this.smile,
-  }) : super(key: key);
+  EndDialog({this.title, this.content, this.backScreen});
 
-  final Emoji smile;
+  String title;
+  String content;
+  String backScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class EndDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15.0))),
       title: new Text(
-        "Khá lắm con đĩ $smile",
+        title,
         style: TextStyle(
           fontSize: 26.0,
           fontWeight: FontWeight.w500,
@@ -35,11 +35,13 @@ class EndDialog extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: new Text(
-        "Cút mẹ mày đi chỗ khác chơi",
+        content,
         style: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w500,
-          color: Theme.of(context).primaryColor,
+          color: Theme
+              .of(context)
+              .primaryColor,
         ),
         textAlign: TextAlign.center,
       ),
@@ -53,7 +55,7 @@ class EndDialog extends StatelessWidget {
                 color: Theme.of(context).primaryColor),
           ),
           onPressed: () {
-            Navigator.of(context).pushNamed(WelcomePage.id);
+            Navigator.of(context).pushNamed(this.backScreen);
           },
         )
       ],

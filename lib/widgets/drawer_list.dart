@@ -87,13 +87,8 @@ class _DrawerList extends State<DrawerList> {
                         ),
                         DrawerListTitle(
                           pColor: pColor,
-                          leadIcon: FontAwesomeIcons.tasks,
-                          titleText: 'Kiểm tra tiến độ',
-                        ),
-                        DrawerListTitle(
-                          pColor: pColor,
                           leadIcon: FontAwesomeIcons.info,
-                          titleText: 'Kết nối Facebook',
+                          titleText: 'Thông tin',
                         ),
                         DrawerListTitle(
                           pColor: pColor,

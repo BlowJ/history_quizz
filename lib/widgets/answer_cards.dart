@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/screens/tien_su_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
@@ -9,26 +10,63 @@ import 'package:provider/provider.dart';
 import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
 
-class AnswerCard extends StatelessWidget {
-  AnswerCard({Key key, @required this.answer}) : super(key: key);
+class AnswerCard extends StatefulWidget {
+  AnswerCard({this.answer, this.subject});
 
   String answer;
+  String subject;
+
+  @override
+  _AnswerCardState createState() => _AnswerCardState();
+}
+
+class _AnswerCardState extends State<AnswerCard> {
   Emoji smile = Emoji.byName('Slightly Smiling Face');
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizzData>(
       builder: (context, quizzdata, child) {
         return GestureDetector(
-          onTap: () {
-            quizzdata.checkAnswer(answer);
-
-            if ((QuizzData.index >= quizzdata.answer.length - 1) &&
-                (answer == QuizzData().answer[QuizzData.index].correctAnswer)) {
-              showDialog(
-                  context: context, builder: (_) => EndDialog(smile: smile));
+          onTap: () async {
+            setState(() {
+              isSelected = !isSelected;
+            });
+            quizzdata.checkAnswer(widget.answer, widget.subject);
+            if ((widget.answer !=
+                await QuizzData().getCorrectAnswer('${widget.subject}'))) {
+              if (quizzdata.score == 0) {
+                showDialog(
+                    context: context,
+                    builder: (_) => EndDialog(
+                          title: 'Toẹt vời',
+                          content: 'Bạn đã hết điểm ${smile}',
+                          backScreen: WelcomePage.id,
+                        ));
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (_) => EndDialog(
+                          title: 'Cảnh báo',
+                          content:
+                              'Bạn còn ${quizzdata.score} lần chọn ${smile}',
+                          backScreen: StartGame.id,
+                        ));
+              }
             }
-            ;
+            if ((QuizzData.index >=
+                    await quizzdata.countDocuments(widget.subject) - 1) &&
+                (widget.answer ==
+                    await QuizzData().getCorrectAnswer('${widget.subject}'))) {
+              showDialog(
+                  context: context,
+                  builder: (_) => EndDialog(
+                        title: 'Toẹt vời',
+                        content: 'Bạn đã hoàn thành thử thách ${smile}',
+                        backScreen: WelcomePage.id,
+                      ));
+            }
           },
           child: Container(
             margin: EdgeInsets.only(bottom: 27.0),
@@ -38,14 +76,14 @@ class AnswerCard extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(28.0),
-              color: Color(0xFF11182B),
+              color: isSelected ? Colors.green : Color(0xFF11182B),
               border: Border.all(
                 color: Color(0xFFFFFFFF),
                 width: 4.0,
               ),
             ),
             child: Text(
-              answer,
+              widget.answer,
               style: TextStyle(
                 fontSize: 20.0,
                 color: Color(0xFFFFFFFF),
@@ -64,6 +102,4 @@ class AnswerCard extends StatelessWidget {
       },
     );
   }
-
-  a() {}
 }
