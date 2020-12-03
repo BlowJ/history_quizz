@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:history_quizz/screens/tien_su_screen.dart';
+import 'package:history_quizz/screens/main_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/screens/tien_su_screen.dart';
+import 'package:history_quizz/screens/main_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
@@ -11,10 +11,9 @@ import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
 
 class AnswerCard extends StatefulWidget {
-  AnswerCard({this.answer, this.subject});
+  AnswerCard({this.answer});
 
   String answer;
-  String subject;
 
   @override
   _AnswerCardState createState() => _AnswerCardState();
@@ -33,9 +32,19 @@ class _AnswerCardState extends State<AnswerCard> {
             setState(() {
               isSelected = !isSelected;
             });
-            quizzdata.checkAnswer(widget.answer, widget.subject);
-            if ((widget.answer !=
-                await QuizzData().getCorrectAnswer('${widget.subject}'))) {
+            if ((QuizzData.index < await quizzdata.countDocuments() - 1) &&
+                (widget.answer == await QuizzData().getCorrectAnswer())) {
+              showDialog(
+                  context: context,
+                  builder: (_) => EndDialog(
+                        title: 'Yay',
+                        content: 'Tiếp tục chứ ${smile}',
+                        backScreen: StartGame.id,
+                      ));
+            }
+            quizzdata.checkAnswer(widget.answer);
+
+            if ((widget.answer != await QuizzData().getCorrectAnswer())) {
               if (quizzdata.score == 0) {
                 showDialog(
                     context: context,
@@ -55,10 +64,9 @@ class _AnswerCardState extends State<AnswerCard> {
                         ));
               }
             }
-            if ((QuizzData.index >=
-                    await quizzdata.countDocuments(widget.subject) - 1) &&
-                (widget.answer ==
-                    await QuizzData().getCorrectAnswer('${widget.subject}'))) {
+
+            if ((QuizzData.index >= await quizzdata.countDocuments() - 1) &&
+                (widget.answer == await QuizzData().getCorrectAnswer())) {
               showDialog(
                   context: context,
                   builder: (_) => EndDialog(

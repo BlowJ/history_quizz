@@ -4,16 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
-import 'package:history_quizz/screens/tien_su_screen.dart';
 import 'package:history_quizz/widgets/answer_cards.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
+import 'package:history_quizz/widgets/endDialog.dart';
 import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:history_quizz/widgets/header.dart';
 import 'package:provider/provider.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
 
 class StartGame extends StatefulWidget {
-  static const String id = 'tien_su_screen';
+  static const String id = 'main_screen';
   int index = 0;
 
   @override
@@ -21,29 +21,43 @@ class StartGame extends StatefulWidget {
 }
 
 class _StartGameState extends State<StartGame> {
-  final StartGame = FirebaseFirestore.instance.collection('tien_su');
+  final StartGame = FirebaseFirestore.instance.collection('quizz_bank');
 
-  Timer _timer;
+  Timer timer;
   int _start = QuizzData().timer;
 
+  // void startTimer() {
+  //   if (timer != null) {
+  //     timer.cancel();
+  //     timer = 200 as Timer;
+  //   } else {
+  //     timer = new Timer.periodic(
+  //       const Duration(seconds: 1),
+  //       (Timer timer) => setState(
+  //         () {
+  //           if (_start < 1) {
+  //             timer.cancel();
+  //           } else {
+  //             _start = _start - 1;
+  //           }
+  //         },
+  //       ),
+  //     );
+  //   }
+  // }
   void startTimer() {
-    if (_timer != null) {
-      _timer.cancel();
-      _timer = null;
-    } else {
-      _timer = new Timer.periodic(
-        const Duration(seconds: 1),
-        (Timer timer) => setState(
-          () {
-            if (_start < 1) {
-              timer.cancel();
-            } else {
-              _start = _start - 1;
-            }
-          },
-        ),
-      );
-    }
+    timer = new Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) => setState(
+        () {
+          if (_start < 1) {
+            timer.cancel();
+          } else {
+            _start = _start - 1;
+          }
+        },
+      ),
+    );
   }
 
   @override
@@ -54,7 +68,7 @@ class _StartGameState extends State<StartGame> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    timer.cancel();
     super.dispose();
   }
 
@@ -98,19 +112,15 @@ class _StartGameState extends State<StartGame> {
                         AnswerList(
                           answerText1: AnswerCard(
                             answer: snapshot.data.data()['answer'][0],
-                            subject: 'tien_su',
                           ),
                           answerText2: AnswerCard(
                             answer: snapshot.data.data()['answer'][1],
-                            subject: 'tien_su',
                           ),
                           answerText3: AnswerCard(
                             answer: snapshot.data.data()['answer'][2],
-                            subject: 'tien_su',
                           ),
                           answerText4: AnswerCard(
                             answer: snapshot.data.data()['answer'][3],
-                            subject: 'tien_su',
                           ),
                           correctAnswer: snapshot.data.data()['correct_answer'],
                         )

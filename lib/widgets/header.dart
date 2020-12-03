@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/screens/tien_su_screen.dart';
+import 'package:history_quizz/screens/main_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   Header({this.timeRemain, this.lifeRemain});
 
   String timeRemain;
   String lifeRemain;
 
+  @override
+  _HeaderState createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizzData>(
@@ -27,7 +32,7 @@ class Header extends StatelessWidget {
               },
             ),
             Text(
-              timeRemain,
+              widget.timeRemain,
               style: TextStyle(
                 fontSize: 32.0,
                 color: Color(0xFFFFFFFF),
@@ -42,7 +47,7 @@ class Header extends StatelessWidget {
                   size: 62.0,
                 ),
                 Text(
-                  lifeRemain,
+                  widget.lifeRemain,
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Color(0xFFFFFFFF),

@@ -2,11 +2,6 @@ import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:history_quizz/widgets/answer_cards.dart';
-import 'package:history_quizz/widgets/endDialog.dart';
-import 'package:provider/provider.dart';
-import 'package:history_quizz/widgets/question_cards.dart';
-import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -14,33 +9,33 @@ class QuizzData extends ChangeNotifier {
   static final qData = FirebaseFirestore.instance;
   static int index = 0;
   int score = 1;
-  int timer = 200;
+  int timer = 30;
 
-  Future getCorrectAnswer(String c) {
-    return qData.collection(c).doc('c${index + 1}').get().then(
+  Future getCorrectAnswer() {
+    return qData.collection('quizz_bank').doc('c${index + 1}').get().then(
         (DocumentSnapshot documentSnapshot) =>
             documentSnapshot.data()['correct_answer']);
   }
 
-  Future<int> countDocuments(String c) async {
-    QuerySnapshot _myDoc = await FirebaseFirestore.instance.collection(c).get();
+  Future<int> countDocuments() async {
+    QuerySnapshot _myDoc =
+        await FirebaseFirestore.instance.collection('quizz_bank').get();
     List<DocumentSnapshot> _myDocCount = _myDoc.docs;
     print(_myDocCount.length);
     return _myDocCount.length; // Count of Documents in Collection
   }
 
-  checkAnswer(String a, String s) async {
-    if (a == await getCorrectAnswer(s)) {
+  checkAnswer(String a) async {
+    if (a == await getCorrectAnswer()) {
       print(a);
       print('Right');
-
-      isFinished(s);
-      isPass(s);
+      isFinished();
+      isPass();
       notifyListeners();
       return true;
     } else {
       print(a);
-      print(await getCorrectAnswer(s));
+      print(await getCorrectAnswer());
       score--;
       print('Wrong');
       if (score <= 0) {
@@ -57,19 +52,19 @@ class QuizzData extends ChangeNotifier {
     notifyListeners();
   }
 
-  isFinished(String c) async {
-    if (index >= await countDocuments(c) - 1) {
+  isFinished() async {
+    if (index >= await countDocuments() - 1) {
       return true;
     } else {
       print(index);
-      index++;
+      index += 1;
       return false;
     }
   }
 
-  isPass(String c) async {
-    if (score == await countDocuments(c) + 1) {
-      score = await countDocuments(c) + 1;
+  isPass() async {
+    if (score == await countDocuments() + 1) {
+      score = await countDocuments() + 1;
     } else
       score++;
   }
