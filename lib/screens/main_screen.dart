@@ -25,7 +25,7 @@ class _StartGameState extends State<StartGame> {
 
   Timer timer;
   int start = QuizzData().timer;
-
+  get st => start;
   // void startTimer() {
   //   if (timer != null) {
   //     timer.cancel();
@@ -68,7 +68,7 @@ class _StartGameState extends State<StartGame> {
 
   @override
   void dispose() {
-    timer.cancel();
+    // timer.cancel();
     super.dispose();
   }
 
@@ -94,9 +94,7 @@ class _StartGameState extends State<StartGame> {
                       children: <Widget>[
                         Header(
                           timeRemain: '$start',
-                          lifeRemain: (start < 1)
-                              ? ((quizzdata.score - 1).toString())
-                              : quizzdata.score.toString(),
+                          lifeRemain: (quizzdata.score).toString(),
                         ),
                         // Provider
                         //     .of<QuizzData>(context)

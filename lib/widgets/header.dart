@@ -28,6 +28,7 @@ class _HeaderState extends State<Header> {
                 size: 38.0,
               ),
               onTap: () {
+                quizzdata.score -= 1;
                 Navigator.of(context).pushNamed(WelcomePage.id);
               },
             ),

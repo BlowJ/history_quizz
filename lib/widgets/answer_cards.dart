@@ -43,7 +43,6 @@ class _AnswerCardState extends State<AnswerCard> {
                       ));
             }
             quizzdata.checkAnswer(widget.answer);
-
             if ((widget.answer != await QuizzData().getCorrectAnswer())) {
               if (quizzdata.score == 0) {
                 showDialog(

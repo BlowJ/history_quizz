@@ -9,8 +9,7 @@ class QuizzData extends ChangeNotifier {
   static final qData = FirebaseFirestore.instance;
   static int index = 0;
   int score = 1;
-  int timer = 30;
-  get Score => score;
+  int timer = 10;
 
   Future getCorrectAnswer() {
     return qData.collection('quizz_bank').doc('c${index + 1}').get().then(
@@ -67,6 +66,7 @@ class QuizzData extends ChangeNotifier {
     if (score == await countDocuments() + 1) {
       score = await countDocuments() + 1;
     } else
-      score++;
+      score += 1;
   }
+
 }
