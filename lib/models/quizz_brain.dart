@@ -10,6 +10,7 @@ class QuizzData extends ChangeNotifier {
   static int index = 0;
   int score = 1;
   int timer = 30;
+  get Score => score;
 
   Future getCorrectAnswer() {
     return qData.collection('quizz_bank').doc('c${index + 1}').get().then(

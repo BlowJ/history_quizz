@@ -24,7 +24,7 @@ class _StartGameState extends State<StartGame> {
   final StartGame = FirebaseFirestore.instance.collection('quizz_bank');
 
   Timer timer;
-  int _start = QuizzData().timer;
+  int start = QuizzData().timer;
 
   // void startTimer() {
   //   if (timer != null) {
@@ -50,10 +50,10 @@ class _StartGameState extends State<StartGame> {
       const Duration(seconds: 1),
       (Timer timer) => setState(
         () {
-          if (_start < 1) {
+          if (start < 1) {
             timer.cancel();
           } else {
-            _start = _start - 1;
+            start = start - 1;
           }
         },
       ),
@@ -93,8 +93,10 @@ class _StartGameState extends State<StartGame> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Header(
-                          timeRemain: '$_start',
-                          lifeRemain: quizzdata.score.toString(),
+                          timeRemain: '$start',
+                          lifeRemain: (start < 1)
+                              ? ((quizzdata.score - 1).toString())
+                              : quizzdata.score.toString(),
                         ),
                         // Provider
                         //     .of<QuizzData>(context)

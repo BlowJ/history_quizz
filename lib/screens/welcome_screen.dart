@@ -79,21 +79,30 @@ class _WelcomePage extends State<WelcomePage> {
                                 // ),
                                 child: Column(
                                   children: <Widget>[
-                                    Container(
-                                      margin: EdgeInsets.only(top: 50.0),
-                                      height: 60.0,
-                                      width: 200.0,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0))),
-                                      child: Text(
-                                        'Bắt đầu chơi',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.lato(
-                                            fontSize: 37.0,
-                                            fontWeight: FontWeight.w500),
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (quizzdata.score > 0) {
+                                          Navigator.pushNamed(
+                                              context, StartGame.id);
+                                        }
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 50.0),
+                                        height: 60.0,
+                                        width: 200.0,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0))),
+                                        child: Text(
+                                          'Bắt đầu chơi',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.lato(
+                                              fontSize: 37.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
                                       ),
                                     )
                                   ],
