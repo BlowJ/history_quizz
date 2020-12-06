@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:history_quizz/models/google_auth.dart';
+import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/widgets/drawer_list_titles.dart';
 import 'package:provider/provider.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class DrawerList extends StatefulWidget {
   @override
@@ -11,6 +15,38 @@ class DrawerList extends StatefulWidget {
 }
 
 class _DrawerList extends State<DrawerList> {
+  // bool isSignedIn = false;
+  // final GoogleSignIn ggSignIn = GoogleSignIn();
+  // void initState(){
+  //   super.initState();
+  //   ggSignIn.onCurrentUserChanged.listen((gSignInAccount) {
+  //     controlSignIn(gSignInAccount);
+  //   }, onError: (gError){
+  //     print(gError);
+  //   });
+  //   ggSignIn.signInSilently(suppressErrors: false).then((gSignInAccount) {
+  //     controlSignIn(gSignInAccount);
+  //   }).catchError((gError){
+  //     print(gError);
+  //   });
+  // }
+  // controlSignIn(GoogleSignInAccount signInAccount){
+  //    if(signInAccount != null){
+  //      setState(() {
+  //           isSignedIn = true;
+  //      });
+  //    }
+  //    else{
+  //      setState(() {
+  //        isSignedIn = false;
+  //      });
+  //    }
+  // }
+  //
+  // UserLogin(){
+  //   ggSignIn.signIn();
+  // }
+
   @override
   Widget build(BuildContext context) {
     Color pColor = Theme.of(context).primaryColor;
@@ -84,6 +120,10 @@ class _DrawerList extends State<DrawerList> {
                           pColor: pColor,
                           leadIcon: FontAwesomeIcons.google,
                           titleText: 'Kết nối Google',
+                          onClick: () async {
+                            await signInWithGoogle();
+                            Navigator.of(context).pushNamed(GoogleUser.id);
+                          },
                         ),
                         DrawerListTitle(
                           pColor: pColor,
