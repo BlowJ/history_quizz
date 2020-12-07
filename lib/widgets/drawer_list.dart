@@ -1,13 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:history_quizz/models/google_auth.dart';
 import 'package:history_quizz/screens/google_screen.dart';
+import 'package:history_quizz/screens/reset_screen.dart';
 import 'package:history_quizz/widgets/drawer_list_titles.dart';
 import 'package:provider/provider.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'endDialog.dart';
 
 class DrawerList extends StatefulWidget {
   @override
@@ -77,14 +81,19 @@ class _DrawerList extends State<DrawerList> {
                               width: 70.0,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage('images/avatar.jpg'),
+                                  // image: AssetImage('images/avatar.jpg'),
+                                  image: isSigned
+                                      ? NetworkImage('${gUser.photoURL}')
+                                      : AssetImage('images/avatar.jpg'),
                                 ),
                                 shape: BoxShape.circle,
                               ),
                             ),
                             Padding(padding: EdgeInsets.only(top: 15.0)),
                             Text(
-                              'Xin chào Long',
+                              isSigned
+                                  ? 'Xin chào ${gUser.displayName}'
+                                  : 'Xin chào bạn',
                               style: TextStyle(
                                   fontSize: 16.0, fontWeight: FontWeight.w500),
                             )
@@ -120,8 +129,8 @@ class _DrawerList extends State<DrawerList> {
                           pColor: pColor,
                           leadIcon: FontAwesomeIcons.google,
                           titleText: 'Kết nối Google',
-                          onClick: () async {
-                            await signInWithGoogle();
+                          onClick: () {
+                            // signInWithGoogle();
                             Navigator.of(context).pushNamed(GoogleUser.id);
                           },
                         ),
@@ -136,15 +145,40 @@ class _DrawerList extends State<DrawerList> {
                           titleText: 'Chơi lại',
                           onClick: () {
                             setState(() {
-                              quizzdata.resetQuizz();
-                              Navigator.pop(context);
+                              // quizzdata.resetQuizz();
+                              // Navigator.of(context).pushNamed(GoogleUser.id);
+                             Navigator.of(context).pushNamed(Reset.id);
                             });
                           },
                         ),
                         DrawerListTitle(
                           pColor: pColor,
                           leadIcon: FontAwesomeIcons.signOutAlt,
+                          titleText: 'Đăng xuất Google',
+                          onClick: () {
+                            setState(() {
+                              signOutGoogle();
+                            });
+                          },
+                        ),
+                        DrawerListTitle(
+                          pColor: pColor,
+                          leadIcon: FontAwesomeIcons.signOutAlt,
+                          titleText: 'Đăng xuất Facebook',
+                          onClick: () {
+                            // setState(() {
+                            //   signOutGoogle();
+                            // });
+                          },
+                        ),
+                        DrawerListTitle(
+                          pColor: pColor,
+                          leadIcon: FontAwesomeIcons.chevronCircleLeft,
                           titleText: 'Thoát',
+                          onClick: (){
+                            
+                            SystemNavigator.pop();
+                          },
                         ),
                       ],
                     ),

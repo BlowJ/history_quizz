@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/main_screen.dart';
+import 'package:history_quizz/screens/reset_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
         routes: {
           WelcomePage.id: (context) => WelcomePage(),
           StartGame.id: (context) => StartGame(),
+          GoogleUser.id: (context) => GoogleUser(),
+          Reset.id: (context) => Reset()
         },
       ),
     );
