@@ -8,6 +8,7 @@ Future<User> signInWithGoogle() async {
   final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
   print('googleUser: $googleUser');
 
+
   // Obtain the auth details from the request
   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
   print('googleAuth: $googleAuth');
