@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:history_quizz/models/auth.dart';
 import 'package:history_quizz/models/google_auth.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/reset_screen.dart';
@@ -13,24 +15,50 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'endDialog.dart';
 
+
 class DrawerList extends StatefulWidget {
   @override
   _DrawerList createState() => _DrawerList();
 }
 
 class _DrawerList extends State<DrawerList> {
-  Future<UserCredential> signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final result = await FacebookAuth.instance.login();
+  // Future<UserCredential> signInWithFacebook() async {
+  //   // Trigger the sign-in flow
+  //   final result = await FacebookAuth.instance.login();
+  //
+  //   // Create a credential from the access token
+  //   final FacebookAuthCredential facebookAuthCredential =
+  //       FacebookAuthProvider.credential(result.token);
+  //
+  //   // Once signed in, return the UserCredential
+  //   return await FirebaseAuth.instance
+  //       .signInWithCredential(facebookAuthCredential);
+  // }
 
-    // Create a credential from the access token
-    final FacebookAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.token);
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance
-        .signInWithCredential(facebookAuthCredential);
+  Future<void> _login() async {
+    try {
+      // by default the login method has the next permissions ['email','public_profile']
+      AccessToken accessToken = await FacebookAuth.instance.login();
+      print(accessToken.toJson());
+      // get the user data
+      final userData = await FacebookAuth.instance.getUserData();
+      print(userData);
+    } on FacebookAuthException catch (e) {
+      print(e.message);
+      switch (e.errorCode) {
+        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+          print("You have a previous login operation in progress");
+          break;
+        case FacebookAuthErrorCode.CANCELLED:
+          print("login cancelled");
+          break;
+        case FacebookAuthErrorCode.FAILED:
+          print("login failed");
+          break;
+      }
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +134,9 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.facebookF,
                           titleText: 'Kết nối Facebook',
                           onClick: () {
-                            signInWithFacebook();
+                            // signInWithFacebook();
+                            // _login();
+                            login();
                           },
                         ),
                         DrawerListTitle(
@@ -142,6 +172,7 @@ class _DrawerList extends State<DrawerList> {
                           onClick: () {
                             setState(() {
                               signOutGoogle();
+
                             });
                           },
                         ),
