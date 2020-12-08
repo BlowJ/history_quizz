@@ -19,18 +19,43 @@ class DrawerList extends StatefulWidget {
 }
 
 class _DrawerList extends State<DrawerList> {
-  Future<UserCredential> signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final result = await FacebookAuth.instance.login();
+  // Future<UserCredential> signInWithFacebook() async {
+  //   // Trigger the sign-in flow
+  //   final result = await FacebookAuth.instance.login();
+  //
+  //   // Create a credential from the access token
+  //   final FacebookAuthCredential facebookAuthCredential =
+  //       FacebookAuthProvider.credential(result.token);
+  //
+  //   // Once signed in, return the UserCredential
+  //   return await FirebaseAuth.instance
+  //       .signInWithCredential(facebookAuthCredential);
+  // }
 
-    // Create a credential from the access token
-    final FacebookAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.token);
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance
-        .signInWithCredential(facebookAuthCredential);
+  Future<void> _login() async {
+    try {
+      // by default the login method has the next permissions ['email','public_profile']
+      AccessToken accessToken = await FacebookAuth.instance.login();
+      print(accessToken.toJson());
+      // get the user data
+      final userData = await FacebookAuth.instance.getUserData();
+      print(userData);
+    } on FacebookAuthException catch (e) {
+      print(e.message);
+      switch (e.errorCode) {
+        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+          print("You have a previous login operation in progress");
+          break;
+        case FacebookAuthErrorCode.CANCELLED:
+          print("login cancelled");
+          break;
+        case FacebookAuthErrorCode.FAILED:
+          print("login failed");
+          break;
+      }
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +131,8 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.facebookF,
                           titleText: 'Kết nối Facebook',
                           onClick: () {
-                            signInWithFacebook();
+                            // signInWithFacebook();
+                            _login();
                           },
                         ),
                         DrawerListTitle(
