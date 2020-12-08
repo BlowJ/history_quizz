@@ -10,7 +10,7 @@ import 'package:history_quizz/widgets/drawer_list_titles.dart';
 import 'package:provider/provider.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'endDialog.dart';
 
 class DrawerList extends StatefulWidget {
@@ -19,37 +19,18 @@ class DrawerList extends StatefulWidget {
 }
 
 class _DrawerList extends State<DrawerList> {
-  // bool isSignedIn = false;
-  // final GoogleSignIn ggSignIn = GoogleSignIn();
-  // void initState(){
-  //   super.initState();
-  //   ggSignIn.onCurrentUserChanged.listen((gSignInAccount) {
-  //     controlSignIn(gSignInAccount);
-  //   }, onError: (gError){
-  //     print(gError);
-  //   });
-  //   ggSignIn.signInSilently(suppressErrors: false).then((gSignInAccount) {
-  //     controlSignIn(gSignInAccount);
-  //   }).catchError((gError){
-  //     print(gError);
-  //   });
-  // }
-  // controlSignIn(GoogleSignInAccount signInAccount){
-  //    if(signInAccount != null){
-  //      setState(() {
-  //           isSignedIn = true;
-  //      });
-  //    }
-  //    else{
-  //      setState(() {
-  //        isSignedIn = false;
-  //      });
-  //    }
-  // }
-  //
-  // UserLogin(){
-  //   ggSignIn.signIn();
-  // }
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final result = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final FacebookAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.token);
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance
+        .signInWithCredential(facebookAuthCredential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +105,9 @@ class _DrawerList extends State<DrawerList> {
                           pColor: pColor,
                           leadIcon: FontAwesomeIcons.facebookF,
                           titleText: 'Kết nối Facebook',
+                          onClick: () {
+                            signInWithFacebook();
+                          },
                         ),
                         DrawerListTitle(
                           pColor: pColor,
