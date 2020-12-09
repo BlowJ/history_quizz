@@ -46,19 +46,15 @@ class _GoogleUserState extends State<GoogleUser> {
                   children: [
                     CircleAvatar(
                       radius: 50.0,
-                      // backgroundImage: NetworkImage(gUser.photoURL),
-                      backgroundImage: NetworkImage(''),
+                      backgroundImage: NetworkImage(gUser.photoURL),
+
                     ),
                     Padding(padding: EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        // 'Welcome\n ${gUser.displayName}',
-                        'hello',
+                      child: Text('Welcome\n ${gUser.displayName}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
-                            fontSize: 25.0
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 25.0
                         ),
                       ),
 
@@ -75,7 +71,7 @@ class _GoogleUserState extends State<GoogleUser> {
                                   context: context,
                                   builder: (_) => EndDialog(
                                     title: 'Xin lỗi',
-                                    content: 'Bạn không thể nhận thêm điểm',
+                                    content: 'Bạn không thể nhận thêm điểm nữa',
                                     backScreen: WelcomePage.id
                                   ));
                             }
