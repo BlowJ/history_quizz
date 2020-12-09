@@ -71,9 +71,8 @@ class _GoogleUserState extends State<GoogleUser> {
                                   context: context,
                                   builder: (_) => EndDialog(
                                     title: 'Xin lỗi',
-                                    content: 'Bạn không thể nhận thêm điểm nữa',
-                                    backScreen: WelcomePage.id
-                                  ));
+                                        content: 'Bạn không thể nhận thêm điểm',
+                                        backScreen: WelcomePage.id));
                             }
                             else{
                               quizzdata.score++;
