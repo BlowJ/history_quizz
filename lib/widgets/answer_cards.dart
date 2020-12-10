@@ -14,6 +14,7 @@ class AnswerCard extends StatefulWidget {
   AnswerCard({this.answer});
 
   String answer;
+  bool isSelected = false;
 
   @override
   _AnswerCardState createState() => _AnswerCardState();
@@ -21,7 +22,6 @@ class AnswerCard extends StatefulWidget {
 
 class _AnswerCardState extends State<AnswerCard> {
   Emoji smile = Emoji.byName('Slightly Smiling Face');
-  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,22 @@ class _AnswerCardState extends State<AnswerCard> {
         return GestureDetector(
           onTap: () async {
             setState(() {
-              isSelected = !isSelected;
+              widget.isSelected = !widget.isSelected;
             });
+
             if ((QuizzData.index < await quizzdata.countDocuments() - 1) &&
                 (widget.answer == await QuizzData().getCorrectAnswer())) {
               showDialog(
                   context: context,
                   builder: (_) => EndDialog(
-                        title: 'Yay',
-                        content: 'Tiếp tục chứ ${smile}',
-                        backScreen: StartGame.id,
+                    title: 'Yay',
+                    content: 'Tiếp tục chứ ${smile}',
+                    onTap: () {
+                      setState(() {
+                        widget.isSelected = !widget.isSelected;
+                      });
+                      Navigator.pop(context);
+                    },
                       ));
             }
             quizzdata.checkAnswer(widget.answer);
@@ -48,18 +54,22 @@ class _AnswerCardState extends State<AnswerCard> {
                 showDialog(
                     context: context,
                     builder: (_) => EndDialog(
-                          title: 'Toẹt vời',
-                          content: 'Bạn đã hết điểm ${smile}',
-                          backScreen: WelcomePage.id,
+                      title: 'Toẹt vời',
+                      content: 'Bạn đã hết điểm ${smile}',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(WelcomePage.id);
+                      },
                         ));
               } else {
                 showDialog(
                     context: context,
                     builder: (_) => EndDialog(
-                          title: 'Cảnh báo',
-                          content:
-                              'Bạn còn ${quizzdata.score} lần chọn ${smile}',
-                          backScreen: StartGame.id,
+                      title: 'Cảnh báo',
+                      content:
+                      'Bạn còn ${quizzdata.score} lần chọn ${smile}',
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                         ));
               }
             }
@@ -69,9 +79,11 @@ class _AnswerCardState extends State<AnswerCard> {
               showDialog(
                   context: context,
                   builder: (_) => EndDialog(
-                        title: 'Toẹt vời',
-                        content: 'Bạn đã hoàn thành thử thách ${smile}',
-                        backScreen: WelcomePage.id,
+                    title: 'Toẹt vời',
+                    content: 'Bạn đã hoàn thành thử thách ${smile}',
+                    onTap: () {
+                      Navigator.of(context).pushNamed(WelcomePage.id);
+                    },
                       ));
             }
           },
@@ -83,7 +95,7 @@ class _AnswerCardState extends State<AnswerCard> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(28.0),
-              color: isSelected ? Colors.green : Color(0xFF11182B),
+              color: widget.isSelected ? Colors.green : Color(0xFF11182B),
               border: Border.all(
                 color: Color(0xFFFFFFFF),
                 width: 4.0,

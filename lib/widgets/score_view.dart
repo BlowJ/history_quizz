@@ -53,11 +53,10 @@ class _ScoreViewState extends State<ScoreView> {
                     padding:
                     EdgeInsets.only(top: 12.0)),
                 Text(
-                  '${quizzdata.score}',
+                  (quizzdata.score >= 0) ? '${quizzdata.score}' : '0',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lato(
-                      fontSize: 33.0,
-                      fontWeight: FontWeight.w900),
+                      fontSize: 33.0, fontWeight: FontWeight.w900),
                 ),
               ],
             ),

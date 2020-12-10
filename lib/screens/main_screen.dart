@@ -14,62 +14,83 @@ import 'package:history_quizz/models/quizz_brain.dart';
 
 class StartGame extends StatefulWidget {
   static const String id = 'main_screen';
-  int index = 0;
+
+  // int index = 0;
+  Timer timer;
+  int startSec = QuizzData().sec;
+  int startMin = QuizzData().min;
 
   @override
-  _StartGameState createState() => _StartGameState();
+  StartGameState createState() => StartGameState();
 }
 
-class _StartGameState extends State<StartGame> {
+class StartGameState extends State<StartGame> {
   final StartGame = FirebaseFirestore.instance.collection('quizz_bank');
 
-  Timer timer;
-  int start = QuizzData().timer;
-  get st => start;
   // void startTimer() {
-  //   if (timer != null) {
-  //     timer.cancel();
-  //     timer = 200 as Timer;
+  //   if (widget.timer != null) {
+  //     widget.timer.cancel();
+  //     widget.start = QuizzData().timer;
   //   } else {
-  //     timer = new Timer.periodic(
+  //     widget.timer = Timer.periodic(
   //       const Duration(seconds: 1),
   //       (Timer timer) => setState(
   //         () {
-  //           if (_start < 1) {
-  //             timer.cancel();
-  //           } else {
-  //             _start = _start - 1;
-  //           }
+  //           checkTimer();
   //         },
   //       ),
   //     );
   //   }
   // }
   void startTimer() {
-    timer = new Timer.periodic(
+    widget.timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) => setState(
         () {
-          if (start < 1) {
-            timer.cancel();
-          } else {
-            start = start - 1;
-          }
+          // if (start == 0) {
+          //   timer.cancel();
+          //   Provider.of<QuizzData>(context, listen: false).score = 0;
+          //
+          // } else {
+          //   start = start - 1;
+          // }
+          checkTimer();
         },
       ),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    startTimer();
+  void checkTimer() {
+    if (widget.startSec < 1) {
+      widget.startMin = widget.startMin - 1;
+      widget.startSec = 59;
+      if (widget.startMin < 1) {
+        widget.startMin = 0;
+        widget.startSec = 0;
+        widget.timer.cancel();
+        Provider.of<QuizzData>(context, listen: false).score = 0;
+        showDialog(
+            context: context,
+            builder: (_) => EndDialog(
+                  title: 'Hic...',
+                  content: 'Bạn đã hết thời gian',
+                  onTap: () {
+                    Navigator.of(context).pushNamed(WelcomePage.id);
+                  },
+                ));
+      }
+      startTimer();
+      widget.timer.cancel();
+    } else {
+      widget.startSec--;
+      print('min: ${widget.startMin}  sec: ${widget.startSec}');
+    }
   }
 
   @override
-  void dispose() {
-    // timer.cancel();
-    super.dispose();
+  void initState() {
+    startTimer();
+    super.initState();
   }
 
   @override
@@ -93,8 +114,14 @@ class _StartGameState extends State<StartGame> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Header(
-                          timeRemain: '$start',
-                          lifeRemain: (quizzdata.score).toString(),
+                          timeRemain: '${widget.startMin} : ${widget.startSec}',
+                          lifeRemain: (Provider
+                              .of<QuizzData>(context)
+                              .score)
+                              .toString(),
+                          // lifeRemain: (start == 0 && quizzdata.score > 0)
+                          //     ? (quizzdata.loseScore).toString()
+                          //     : (quizzdata.score.toString()),
                         ),
                         // Provider
                         //     .of<QuizzData>(context)
@@ -136,11 +163,19 @@ class _StartGameState extends State<StartGame> {
         return Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFCED7EC)),
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme
+                .of(context)
+                .primaryColor,
             strokeWidth: 6.0,
           ),
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    widget.timer.cancel();
+    super.dispose();
   }
 }

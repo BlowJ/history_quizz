@@ -15,6 +15,7 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
+
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizzData>(

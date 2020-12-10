@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/screens/main_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/widgets/answer_cards.dart';
+import 'package:provider/provider.dart';
 
-class EndDialog extends StatelessWidget {
-  EndDialog({this.title, this.content, this.backScreen});
+class EndDialog extends StatefulWidget {
+  EndDialog({this.title, this.content, this.onTap});
 
   String title;
   String content;
-  String backScreen;
+  Function onTap;
 
+  @override
+  _EndDialogState createState() => _EndDialogState();
+}
+
+class _EndDialogState extends State<EndDialog> {
   @override
   Widget build(BuildContext context) {
     return new AlertDialog(
@@ -19,7 +27,7 @@ class EndDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15.0))),
       title: new Text(
-        title,
+        widget.title,
         style: TextStyle(
           fontSize: 26.0,
           fontWeight: FontWeight.w500,
@@ -35,7 +43,7 @@ class EndDialog extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: new Text(
-        content,
+        widget.content,
         style: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w500,
@@ -47,16 +55,17 @@ class EndDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         FlatButton(
+          onPressed: widget.onTap,
           child: Text(
             'OK',
             style: TextStyle(
                 fontSize: 19.0,
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).primaryColor),
+                color: Theme
+                    .of(context)
+                    .primaryColor),
           ),
-          onPressed: () {
-            Navigator.of(context).pushNamed(this.backScreen);
-          },
+
         )
       ],
     );

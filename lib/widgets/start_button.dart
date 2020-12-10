@@ -21,9 +21,8 @@ class _StartButtonState extends State<StartButton> {
       builder: (context, quizzdata, child){
         return GestureDetector(
           onTap: () {
-            if (quizzdata.score > 0) {
-              Navigator.pushNamed(
-                  context, StartGame.id);
+            if (Provider.of<QuizzData>(context, listen: false).score >= 1) {
+              Navigator.pushNamed(context, StartGame.id);
             }
           },
           child: Container(

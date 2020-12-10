@@ -35,30 +35,29 @@ class _DrawerList extends State<DrawerList> {
   //       .signInWithCredential(facebookAuthCredential);
   // }
 
-  Future<void> _login() async {
-    try {
-      // by default the login method has the next permissions ['email','public_profile']
-      AccessToken accessToken = await FacebookAuth.instance.login();
-      print(accessToken.toJson());
-      // get the user data
-      final userData = await FacebookAuth.instance.getUserData();
-      print(userData);
-    } on FacebookAuthException catch (e) {
-      print(e.message);
-      switch (e.errorCode) {
-        case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
-          print("You have a previous login operation in progress");
-          break;
-        case FacebookAuthErrorCode.CANCELLED:
-          print("login cancelled");
-          break;
-        case FacebookAuthErrorCode.FAILED:
-          print("login failed");
-          break;
-      }
-    }
-  }
-
+  // Future<void> _login() async {
+  //   try {
+  //     // by default the login method has the next permissions ['email','public_profile']
+  //     AccessToken accessToken = await FacebookAuth.instance.login();
+  //     print(accessToken.toJson());
+  //     // get the user data
+  //     final userData = await FacebookAuth.instance.getUserData();
+  //     print(userData);
+  //   } on FacebookAuthException catch (e) {
+  //     print(e.message);
+  //     switch (e.errorCode) {
+  //       case FacebookAuthErrorCode.OPERATION_IN_PROGRESS:
+  //         print("You have a previous login operation in progress");
+  //         break;
+  //       case FacebookAuthErrorCode.CANCELLED:
+  //         print("login cancelled");
+  //         break;
+  //       case FacebookAuthErrorCode.FAILED:
+  //         print("login failed");
+  //         break;
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
