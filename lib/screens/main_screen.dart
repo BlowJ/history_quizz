@@ -108,9 +108,7 @@ class StartGameState extends State<StartGame> {
                       children: <Widget>[
                         Header(
                           timeRemain: '${widget.startMin} : ${widget.startSec}',
-                          lifeRemain: (Provider
-                              .of<QuizzData>(context)
-                              .score)
+                          lifeRemain: (Provider.of<QuizzData>(context).score)
                               .toString(),
                           // lifeRemain: (start == 0 && quizzdata.score > 0)
                           //     ? (quizzdata.loseScore).toString()

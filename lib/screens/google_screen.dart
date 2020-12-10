@@ -68,11 +68,10 @@ class _GoogleUserState extends State<GoogleUser> {
                               if (quizzdata.score > 3) {
                                 showDialog(
                                     context: context,
-                                    builder: (_) =>
-                                        EndDialog(
+                                    builder: (_) => EndDialog(
                                           title: 'Xin lỗi',
                                           content:
-                                          'Bạn không thể nhận thêm điểm',
+                                              'Bạn không thể nhận thêm điểm',
                                           // backScreen: WelcomePage.id
                                         ));
                               } else {
