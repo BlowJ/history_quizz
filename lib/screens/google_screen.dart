@@ -78,8 +78,7 @@ class _GoogleUserState extends State<GoogleUser> {
                                 quizzdata.score++;
                                 showDialog(
                                     context: context,
-                                    builder: (_) =>
-                                        EndDialog(
+                                    builder: (_) => EndDialog(
                                           title: 'Yeah',
                                           content: 'Tiếp tục nào',
                                           // backScreen: WelcomePage.id
@@ -93,9 +92,7 @@ class _GoogleUserState extends State<GoogleUser> {
                             highlightElevation: 10.0,
                             focusColor: Colors.blueGrey,
                             disabledTextColor: Colors.grey,
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                             disabledColor: Colors.grey,
                             textColor: Color(0xFFCED7EC),
                             child: Text(

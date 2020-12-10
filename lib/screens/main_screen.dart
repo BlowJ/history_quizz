@@ -154,9 +154,7 @@ class StartGameState extends State<StartGame> {
         return Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFCED7EC)),
-            backgroundColor: Theme
-                .of(context)
-                .primaryColor,
+            backgroundColor: Theme.of(context).primaryColor,
             strokeWidth: 6.0,
           ),
         );
