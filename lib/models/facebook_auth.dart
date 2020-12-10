@@ -6,7 +6,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 final FacebookLogin facebookSignIn = new FacebookLogin();
 
 final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = new GoogleSignIn();
+// final GoogleSignIn googleSignIn = new GoogleSignIn();
 
 // Future<User> signInGoogle() async {
 //   // Attempt to get the currently authenticated user
@@ -36,10 +36,8 @@ final GoogleSignIn googleSignIn = new GoogleSignIn();
 //   return userCredential.user;
 // }
 
-
 Future<Null> login() async {
-  final FacebookLoginResult result =
-  await facebookSignIn.logIn(['email']);
+  final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
   switch (result.status) {
     case FacebookLoginStatus.loggedIn:

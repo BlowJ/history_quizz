@@ -47,13 +47,6 @@ class StartGameState extends State<StartGame> {
       const Duration(seconds: 1),
       (Timer timer) => setState(
         () {
-          // if (start == 0) {
-          //   timer.cancel();
-          //   Provider.of<QuizzData>(context, listen: false).score = 0;
-          //
-          // } else {
-          //   start = start - 1;
-          // }
           checkTimer();
         },
       ),
@@ -61,11 +54,10 @@ class StartGameState extends State<StartGame> {
   }
 
   void checkTimer() {
-    if (widget.startSec < 1) {
-      widget.startMin = widget.startMin - 1;
-      widget.startSec = 59;
-      if (widget.startMin < 1) {
-        widget.startMin = 0;
+    if (widget.startMin < 1) {
+      widget.startMin = 0;
+      widget.startSec--;
+      if (widget.startSec < 1) {
         widget.startSec = 0;
         widget.timer.cancel();
         Provider.of<QuizzData>(context, listen: false).score = 0;
@@ -79,11 +71,12 @@ class StartGameState extends State<StartGame> {
                   },
                 ));
       }
-      startTimer();
-      widget.timer.cancel();
     } else {
       widget.startSec--;
-      print('min: ${widget.startMin}  sec: ${widget.startSec}');
+      if (widget.startSec < 1) {
+        widget.startMin = widget.startMin - 1;
+        widget.startSec = 59;
+      }
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:history_quizz/models/auth.dart';
+import 'package:history_quizz/models/facebook_auth.dart';
 import 'package:history_quizz/models/google_auth.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/reset_screen.dart';
@@ -14,7 +14,6 @@ import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'endDialog.dart';
-
 
 class DrawerList extends StatefulWidget {
   @override
@@ -160,7 +159,7 @@ class _DrawerList extends State<DrawerList> {
                             setState(() {
                               // quizzdata.resetQuizz();
                               // Navigator.of(context).pushNamed(GoogleUser.id);
-                             Navigator.of(context).pushNamed(Reset.id);
+                              Navigator.of(context).pushNamed(Reset.id);
                             });
                           },
                         ),
@@ -171,7 +170,6 @@ class _DrawerList extends State<DrawerList> {
                           onClick: () {
                             setState(() {
                               signOutGoogle();
-
                             });
                           },
                         ),
@@ -189,8 +187,7 @@ class _DrawerList extends State<DrawerList> {
                           pColor: pColor,
                           leadIcon: FontAwesomeIcons.chevronCircleLeft,
                           titleText: 'Thoát',
-                          onClick: (){
-                            
+                          onClick: () {
                             SystemNavigator.pop();
                           },
                         ),

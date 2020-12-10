@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:history_quizz/models/auth.dart';
+import 'package:history_quizz/models/facebook_auth.dart';
 import 'package:history_quizz/models/google_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,7 +20,7 @@ class _GoogleUserState extends State<GoogleUser> {
   @override
   void initState() {
     super.initState();
-   signInWithGoogle();
+    signInWithGoogle();
   }
 
   @override
@@ -47,17 +47,16 @@ class _GoogleUserState extends State<GoogleUser> {
                     CircleAvatar(
                       radius: 50.0,
                       backgroundImage: NetworkImage(gUser.photoURL),
-
                     ),
-                    Padding(padding: EdgeInsets.only(top: 20.0),
-                      child: Text('Welcome\n ${gUser.displayName}',
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        'Welcome\n ${gUser.displayName}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 25.0
-                        ),
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 25.0),
                       ),
-
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 30.0, top: 100.0),
@@ -65,49 +64,49 @@ class _GoogleUserState extends State<GoogleUser> {
                         height: 60.0,
                         minWidth: 200.0,
                         child: RaisedButton(
-                          onPressed: (){
-                            if(quizzdata.score > 3){
-                              showDialog(
+                            onPressed: () {
+                              if (quizzdata.score > 3) {
+                                showDialog(
                                     context: context,
-                                    builder: (_) => EndDialog(
+                                    builder: (_) =>
+                                        EndDialog(
                                           title: 'Xin lỗi',
                                           content:
-                                              'Bạn không thể nhận thêm điểm',
+                                          'Bạn không thể nhận thêm điểm',
+                                          // backScreen: WelcomePage.id
+                                        ));
+                              } else {
+                                quizzdata.score++;
+                                showDialog(
+                                    context: context,
+                                    builder: (_) =>
+                                        EndDialog(
+                                          title: 'Yeah',
+                                          content: 'Tiếp tục nào',
                                           // backScreen: WelcomePage.id
                                         ));
                               }
-                            else{
-                              quizzdata.score++;
-                              showDialog(
-                                  context: context,
-                                  builder: (_) => EndDialog(
-                                      title: 'Yeah',
-                                      content: 'Tiếp tục nào',
-                                    // backScreen: WelcomePage.id
-                                  ));
-                            }
-                          },
-                          onHighlightChanged: (value) => 2,
-                          elevation: 12.0,
-                          disabledElevation: 3.0,
-                          focusElevation: 8.0,
-                          highlightElevation: 10.0,
+                            },
+                            onHighlightChanged: (value) => 2,
+                            elevation: 12.0,
+                            disabledElevation: 3.0,
+                            focusElevation: 8.0,
+                            highlightElevation: 10.0,
                             focusColor: Colors.blueGrey,
                             disabledTextColor: Colors.grey,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
                             disabledColor: Colors.grey,
                             textColor: Color(0xFFCED7EC),
-                            child: Text('Nhận thêm điểm',
+                            child: Text(
+                              'Nhận thêm điểm',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20.0
-                              ),
+                              style: TextStyle(fontSize: 20.0),
                             ),
-                          shape: StadiumBorder(
-                            side: BorderSide.none,
-
-                          )
-                        ),
+                            shape: StadiumBorder(
+                              side: BorderSide.none,
+                            )),
                       ),
                     )
                   ],
