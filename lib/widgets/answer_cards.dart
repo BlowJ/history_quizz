@@ -7,7 +7,6 @@ import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
-import 'package:history_quizz/widgets/subject_cards.dart';
 import 'package:provider/provider.dart';
 import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';

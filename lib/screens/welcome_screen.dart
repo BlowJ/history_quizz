@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:history_quizz/widgets/score_view.dart';
 import 'package:history_quizz/widgets/start_button.dart';
-import 'package:history_quizz/widgets/subject_cards.dart';
 import 'package:history_quizz/widgets/drawer_list.dart';
 import 'package:history_quizz/widgets/box_title.dart';
 import 'package:history_quizz/screens/main_screen.dart';
@@ -13,7 +12,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WelcomePage extends StatefulWidget {
   static const String id = 'welcome_screen';
-
   @override
   _WelcomePage createState() => _WelcomePage();
 }

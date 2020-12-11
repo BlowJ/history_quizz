@@ -6,37 +6,8 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 final FacebookLogin facebookSignIn = new FacebookLogin();
 
 final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-// final GoogleSignIn googleSignIn = new GoogleSignIn();
 
-// Future<User> signInGoogle() async {
-//   // Attempt to get the currently authenticated user
-//   GoogleSignInAccount currentUser = googleSignIn.currentUser;
-//   if (currentUser == null) {
-//     // Attempt to sign in without user interaction
-//     currentUser = await googleSignIn.signInSilently();
-//   }
-//   if (currentUser == null) {
-//     // Force the user to interactively sign in
-//     currentUser = await googleSignIn.signIn();
-//   }
-//
-//   final GoogleSignInAuthentication googleAuth =
-//   await currentUser.authentication;
-//
-//   // Authenticate with firebase
-//   final GoogleAuthCredential user = GoogleAuthProvider.credential(
-//     accessToken: googleAuth.accessToken,
-//     idToken: googleAuth.idToken,
-//   );
-//   UserCredential userCredential =
-//   await FirebaseAuth.instance.signInWithCredential(user);
-//   assert(user != null);
-//   // assert(!user.isAnonymous);
-//
-//   return userCredential.user;
-// }
-
-Future<Null> login() async {
+Future<Null> fLogin() async {
   final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
   switch (result.status) {
@@ -60,4 +31,10 @@ Future<Null> login() async {
           'Here\'s the error Facebook gave us: ${result.errorMessage}');
       break;
   }
+}
+
+Future<void> fSignOut() async {
+  await firebaseAuth.signOut();
+  await facebookSignIn.logOut();
+  print('Đã đăng xuất Facebook');
 }
