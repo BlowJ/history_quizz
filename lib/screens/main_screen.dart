@@ -28,6 +28,8 @@ class StartGame extends StatefulWidget {
 
 class StartGameState extends State<StartGame> {
   final StartGame = FirebaseFirestore.instance.collection('quizz_bank');
+  var sg =
+      FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
 
   // void startTimer() {
   //   if (widget.timer != null) {
@@ -123,9 +125,7 @@ class StartGameState extends State<StartGame> {
                           //     ? (quizzdata.loseScore).toString()
                           //     : (quizzdata.score.toString()),
                         ),
-                        // Provider
-                        //     .of<QuizzData>(context)
-                        //     .question[QuizzData.index],
+
                         QuestionCard(
                           questionNumber:
                               snapshot.data.data()['question_number'],

@@ -40,9 +40,9 @@ class _AnswerCardState extends State<AnswerCard> {
               showDialog(
                   context: context,
                   builder: (_) => EndDialog(
-                    title: 'Yay',
-                    content: 'Tiếp tục chứ ${smile}',
-                    onTap: () {
+                        title: 'Yay',
+                        content: 'Tiếp tục chứ ${smile}',
+                        onTap: () {
                           newScore(
                             Score(
                                 score:
@@ -64,17 +64,10 @@ class _AnswerCardState extends State<AnswerCard> {
                       title: 'Toẹt vời',
                       content: 'Bạn đã hết điểm ${smile}',
                       onTap: () {
-                        newScore(
-                          Score(
-                              score:
-                              '${Provider
-                                  .of<QuizzData>(context, listen: false)
-                                  .score}'),
-                        );
                         print(getScore());
                         Navigator.of(context).pushNamed(WelcomePage.id);
                       },
-                        ));
+                    ));
               } else {
                 showDialog(
                     context: context,
@@ -83,9 +76,16 @@ class _AnswerCardState extends State<AnswerCard> {
                       content:
                       'Bạn còn ${quizzdata.score} lần chọn ${smile}',
                       onTap: () {
+                        newScore(
+                          Score(
+                              score:
+                              '${Provider
+                                  .of<QuizzData>(context, listen: false)
+                                  .score}'),
+                        );
                         Navigator.pop(context);
                       },
-                        ));
+                    ));
               }
             }
 
@@ -107,7 +107,7 @@ class _AnswerCardState extends State<AnswerCard> {
                       print(getScore());
                       Navigator.of(context).pushNamed(WelcomePage.id);
                     },
-                      ));
+                  ));
             }
           },
           child: Container(

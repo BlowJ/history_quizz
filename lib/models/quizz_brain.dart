@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:history_quizz/models/user_score.dart';
+import 'package:history_quizz/utils/score_data.dart';
 
 class QuizzData extends ChangeNotifier {
   static final qData = FirebaseFirestore.instance;
@@ -37,7 +39,10 @@ class QuizzData extends ChangeNotifier {
     } else {
       print(a);
       print(await getCorrectAnswer());
-      score--;
+      --score;
+      newScore(
+        Score(score: '$score'),
+      );
       print('Wrong');
       if (score <= 0) {
         score = 0;

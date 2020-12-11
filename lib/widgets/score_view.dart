@@ -16,6 +16,11 @@ class ScoreView extends StatefulWidget {
 
 class _ScoreViewState extends State<ScoreView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
       future: getScore(),
@@ -23,7 +28,11 @@ class _ScoreViewState extends State<ScoreView> {
         return snapshot.hasData
             ? Consumer<QuizzData>(
                 builder: (context, quizzdata, child) {
-                  quizzdata.score = int.parse(snapshot.data.last.score);
+                  int yourScore = (snapshot.data.isEmpty)
+                      ? quizzdata.score
+                      : int.parse(snapshot.data.last.score);
+
+                  // quizzdata.score = int.parse(snapshot.data.last.score);
                   return Padding(
                     padding: EdgeInsets.only(top: 50.0),
                     child: Container(
@@ -35,40 +44,41 @@ class _ScoreViewState extends State<ScoreView> {
                         borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 6,
-                            blurRadius: 6,
-                            offset: Offset(0, 3),
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 15.0)),
-                          Text(
-                            'Điểm của bạn',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.lato(
-                                fontSize: 25.0, fontWeight: FontWeight.w500),
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 12.0)),
-                          Text(
-                            (quizzdata.score >= 0) ? '${quizzdata.score}' : '0',
-                            // '${snapshot.data[0].score}',
-
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.lato(
-                                fontSize: 33.0, fontWeight: FontWeight.w900),
-                          ),
-                        ],
-                      ),
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 6,
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    )
+                  ],
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(top: 15.0)),
+                    Text(
+                      'Điểm của bạn',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                          fontSize: 25.0, fontWeight: FontWeight.w500),
                     ),
-                  );
-                },
-              )
+                    Padding(padding: EdgeInsets.only(top: 12.0)),
+                    Text(
+                      (yourScore >= 0) ? '${yourScore}' : '0',
+                      // (quizzdata.score >= 0) ? '${quizzdata.score}' : '0',
+                      // '${snapshot.data[0].score}',
+
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                          fontSize: 33.0, fontWeight: FontWeight.w900),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        )
             : Center(
-                child: CircularProgressIndicator(),
-              );
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

@@ -16,28 +16,38 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
+  @override
+  void initState() {
+    newScore(
+      Score(score: '${Provider.of<QuizzData>(context, listen: false).score}'),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
       future: getScore(),
       builder: (context, snapshot) {
-        return Consumer<QuizzData>(
-          builder: (context, quizzdata, child) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                GestureDetector(
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 38.0,
-                  ),
-                  onTap: () {
-                    quizzdata.score -= 3;
+        return snapshot.hasData
+            ? Consumer<QuizzData>(
+                builder: (context, quizzdata, child) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: 38.0,
+                        ),
+                        onTap: () {
+                          quizzdata.score -= 3;
                     newScore(
                       Score(
                           score:
-                              '${Provider.of<QuizzData>(context, listen: false).score}'),
+                          '${Provider
+                              .of<QuizzData>(context, listen: false)
+                              .score}'),
                     );
                     print(getScore());
                     Navigator.of(context).popAndPushNamed(WelcomePage.id);
@@ -71,6 +81,9 @@ class _HeaderState extends State<Header> {
               ],
             );
           },
+        )
+            : Center(
+          child: CircularProgressIndicator(),
         );
       },
     );

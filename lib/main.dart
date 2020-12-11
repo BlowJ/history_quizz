@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/main_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: new MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
           primaryColor: Color(0xFF0A0E21),
           scaffoldBackgroundColor: Color(0xFF0A0E21),
