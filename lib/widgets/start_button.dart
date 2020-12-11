@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/main_screen.dart';
+import 'package:history_quizz/utils/score_data.dart';
 import 'package:provider/provider.dart';
 
 class StartButton extends StatefulWidget {
@@ -20,15 +22,20 @@ class _StartButtonState extends State<StartButton> {
     return Consumer<QuizzData>(
       builder: (context, quizzdata, child){
         return GestureDetector(
-          onTap: () {
+          onTap: () async {
+            // newScore(
+            //   Score(
+            //       score:
+            //       '${Provider.of<QuizzData>(context, listen: false).score}'),
+            // );
+            // print(await getScore());
             if (Provider.of<QuizzData>(context, listen: false).score >= 1) {
               Navigator.pushNamed(context, StartGame.id);
             }
           },
           child: Container(
             margin: EdgeInsets.only(top: 70.0),
-            padding: EdgeInsets.only(
-                left: 80.0, right: 5.0),
+            padding: EdgeInsets.only(left: 80.0, right: 5.0),
             height: 60.0,
             width: 280.0,
             decoration: BoxDecoration(

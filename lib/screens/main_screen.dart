@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/answer_cards.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
@@ -67,6 +69,12 @@ class StartGameState extends State<StartGame> {
                   title: 'Hic...',
                   content: 'Bạn đã hết thời gian',
                   onTap: () {
+                    newScore(
+                      Score(
+                          score:
+                              '${Provider.of<QuizzData>(context, listen: false).score}'),
+                    );
+                    print(getScore());
                     Navigator.of(context).pushNamed(WelcomePage.id);
                   },
                 ));
@@ -107,9 +115,10 @@ class StartGameState extends State<StartGame> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Header(
-                          timeRemain: '${widget.startMin} : ${widget.startSec}',
-                          lifeRemain: (Provider.of<QuizzData>(context).score)
-                              .toString(),
+                          time: '${widget.startMin} : ${widget.startSec}',
+                          // timeRemain: '${widget.startMin} : ${widget.startSec}',
+                          // lifeRemain: '${Provider.of<QuizzData>(context).score}'
+                          //     ,
                           // lifeRemain: (start == 0 && quizzdata.score > 0)
                           //     ? (quizzdata.loseScore).toString()
                           //     : (quizzdata.score.toString()),
@@ -164,7 +173,7 @@ class StartGameState extends State<StartGame> {
 
   @override
   void dispose() {
-    widget.timer.cancel();
     super.dispose();
+    widget.timer.cancel();
   }
 }

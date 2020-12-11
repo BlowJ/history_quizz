@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/main_screen.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
 import 'package:history_quizz/widgets/subject_cards.dart';
@@ -41,11 +43,16 @@ class _AnswerCardState extends State<AnswerCard> {
                     title: 'Yay',
                     content: 'Tiếp tục chứ ${smile}',
                     onTap: () {
-                      setState(() {
-                        widget.isSelected = !widget.isSelected;
-                      });
-                      Navigator.pop(context);
-                    },
+                          newScore(
+                            Score(
+                                score:
+                                    '${Provider.of<QuizzData>(context, listen: false).score}'),
+                          );
+                          setState(() {
+                            widget.isSelected = !widget.isSelected;
+                          });
+                          Navigator.pop(context);
+                        },
                       ));
             }
             quizzdata.checkAnswer(widget.answer);
@@ -57,6 +64,14 @@ class _AnswerCardState extends State<AnswerCard> {
                       title: 'Toẹt vời',
                       content: 'Bạn đã hết điểm ${smile}',
                       onTap: () {
+                        newScore(
+                          Score(
+                              score:
+                              '${Provider
+                                  .of<QuizzData>(context, listen: false)
+                                  .score}'),
+                        );
+                        print(getScore());
                         Navigator.of(context).pushNamed(WelcomePage.id);
                       },
                         ));
@@ -82,6 +97,14 @@ class _AnswerCardState extends State<AnswerCard> {
                     title: 'Toẹt vời',
                     content: 'Bạn đã hoàn thành thử thách ${smile}',
                     onTap: () {
+                      newScore(
+                        Score(
+                            score:
+                            '${Provider
+                                .of<QuizzData>(context, listen: false)
+                                .score}'),
+                      );
+                      print(getScore());
                       Navigator.of(context).pushNamed(WelcomePage.id);
                     },
                       ));

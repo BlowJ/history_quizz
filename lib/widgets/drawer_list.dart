@@ -6,8 +6,10 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:history_quizz/models/facebook_auth.dart';
 import 'package:history_quizz/models/google_auth.dart';
+import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/reset_screen.dart';
+import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/drawer_list_titles.dart';
 import 'package:provider/provider.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
@@ -157,9 +159,14 @@ class _DrawerList extends State<DrawerList> {
                           titleText: 'Chơi lại',
                           onClick: () {
                             setState(() {
-                              // quizzdata.resetQuizz();
+                              quizzdata.resetQuizz();
+                              newScore(
+                                Score(
+                                    score:
+                                        '${Provider.of<QuizzData>(context, listen: false).score}'),
+                              );
                               // Navigator.of(context).pushNamed(GoogleUser.id);
-                              Navigator.of(context).pushNamed(Reset.id);
+                              // Navigator.of(context).pushNamed(Reset.id);
                             });
                           },
                         ),
@@ -178,6 +185,7 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.signOutAlt,
                           titleText: 'Đăng xuất Facebook',
                           onClick: () {
+                            deleteScore();
                             // setState(() {
                             //   signOutGoogle();
                             // });
@@ -188,6 +196,13 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.chevronCircleLeft,
                           titleText: 'Thoát',
                           onClick: () {
+                            newScore(
+                              Score(
+                                  score:
+                                  '${Provider
+                                      .of<QuizzData>(context, listen: false)
+                                      .score}'),
+                            );
                             SystemNavigator.pop();
                           },
                         ),
