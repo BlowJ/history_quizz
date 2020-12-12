@@ -7,7 +7,7 @@ final FacebookLogin facebookSignIn = new FacebookLogin();
 
 final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-Future<Null> fLogin() async {
+Future<Null> signInWithFacebook() async {
   final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
   switch (result.status) {
@@ -15,7 +15,7 @@ Future<Null> fLogin() async {
       final FacebookAccessToken accessToken = result.accessToken;
       print('''
          Logged in!
-         
+          
          Token: ${accessToken.token}
          User id: ${accessToken.userId}
          Expires: ${accessToken.expires}

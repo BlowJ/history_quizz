@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
 
-const String db_name = "user_score.db";
+const String db_name = "userScore.db";
 Database _database;
 
 Future<Database> get database async {

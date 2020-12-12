@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:history_quizz/models/facebook_auth.dart';
 import 'package:history_quizz/models/google_auth.dart';
 import 'package:history_quizz/models/user_score.dart';
+import 'package:history_quizz/screens/facebook_screen.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/reset_screen.dart';
 import 'package:history_quizz/utils/score_data.dart';
@@ -24,11 +25,9 @@ class DrawerList extends StatefulWidget {
 
 class _DrawerList extends State<DrawerList> {
 
-
   @override
   Widget build(BuildContext context) {
     Color pColor = Theme.of(context).primaryColor;
-
     return Consumer<QuizzData>(
       builder: (context, quizzdata, child) {
         return SafeArea(
@@ -101,7 +100,7 @@ class _DrawerList extends State<DrawerList> {
                           onClick: () {
                             // signInWithFacebook();
                             // _login();
-                            fLogin();
+                            Navigator.of(context).pushNamed(FacebookUser.id);
                           },
                         ),
                         DrawerListTitle(

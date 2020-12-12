@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:history_quizz/screens/facebook_screen.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/main_screen.dart';
 import 'package:history_quizz/screens/reset_screen.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           WelcomePage.id: (context) => WelcomePage(),
           StartGame.id: (context) => StartGame(),
           GoogleUser.id: (context) => GoogleUser(),
+          FacebookUser.id: (context) => FacebookUser(),
           Reset.id: (context) => Reset()
         },
       ),
