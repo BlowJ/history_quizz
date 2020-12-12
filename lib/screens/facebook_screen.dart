@@ -46,15 +46,18 @@ class _FacebookUserState extends State<FacebookUser> {
                     CircleAvatar(
                       radius: 50.0,
                       backgroundImage: NetworkImage(
-                          FirebaseAuth.instance.currentUser.photoURL),
+                        userProfile["picture"]["data"]["url"],
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                       child: Text(
-                        'Welcome\n ${FirebaseAuth.instance.currentUser.displayName}',
+                        'Welcome\n ${userProfile["name"]}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
                             fontSize: 25.0),
                       ),
                     ),
