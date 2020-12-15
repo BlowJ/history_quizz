@@ -5,12 +5,16 @@ import 'package:history_quizz/models/google_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
 import 'package:provider/provider.dart';
 
 class GoogleUser extends StatefulWidget {
   static const String id = 'google_screen';
+
+  // bool isLogin = false;
 
   @override
   _GoogleUserState createState() => _GoogleUserState();
@@ -20,7 +24,10 @@ class _GoogleUserState extends State<GoogleUser> {
   @override
   void initState() {
     super.initState();
-    signInWithGoogle();
+    // signInWithGoogle();
+    setState(() {
+      isGoogleSigned = !isGoogleSigned;
+    });
   }
 
   @override
@@ -46,12 +53,16 @@ class _GoogleUserState extends State<GoogleUser> {
                   children: [
                     CircleAvatar(
                       radius: 50.0,
-                      backgroundImage: NetworkImage(gUser.photoURL),
+                      backgroundImage: (isGoogleSigned)
+                          ? NetworkImage(gUser.photoURL)
+                          : AssetImage('images/avatar_default.png'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                       child: Text(
-                        'Welcome\n ${gUser.displayName}',
+                        (isGoogleSigned)
+                            ? 'Welcome\n ${gUser.displayName}'
+                            : 'Welcome bạn ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
@@ -65,23 +76,52 @@ class _GoogleUserState extends State<GoogleUser> {
                         minWidth: 200.0,
                         child: RaisedButton(
                             onPressed: () {
-                              if (quizzdata.score > 3) {
+                              if (Provider
+                                  .of<QuizzData>(context, listen: false)
+                                  .score > 3) {
                                 showDialog(
                                     context: context,
-                                    builder: (_) => EndDialog(
+                                    builder: (_) =>
+                                        EndDialog(
                                           title: 'Xin lỗi',
                                           content:
-                                              'Bạn không thể nhận thêm điểm',
-                                          // backScreen: WelcomePage.id
+                                          'Bạn không thể nhận thêm điểm',
+                                          onTap: () {
+                                            newScore(
+                                              Score(
+                                                  score:
+                                                  '${Provider
+                                                      .of<QuizzData>(
+                                                      context, listen: false)
+                                                      .score}'),
+                                            );
+                                            Navigator.of(context).pushNamed(
+                                                WelcomePage.id);
+                                          },
                                         ));
                               } else {
-                                quizzdata.score++;
+                                Provider
+                                    .of<QuizzData>(context, listen: false)
+                                    .score++;
                                 showDialog(
                                     context: context,
-                                    builder: (_) => EndDialog(
+                                    builder: (_) =>
+                                        EndDialog(
                                           title: 'Yeah',
                                           content: 'Tiếp tục nào',
                                           // backScreen: WelcomePage.id
+                                          onTap: () {
+                                            newScore(
+                                              Score(
+                                                  score:
+                                                  '${Provider
+                                                      .of<QuizzData>(
+                                                      context, listen: false)
+                                                      .score}'),
+                                            );
+                                            Navigator.of(context).pushNamed(
+                                                WelcomePage.id);
+                                          },
                                         ));
                               }
                             },

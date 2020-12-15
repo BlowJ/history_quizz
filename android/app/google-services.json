@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "312967968394-l75v7d233orrgc79669l41modrrv4lqg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoanglong2112.history_quizz",
+            "certificate_hash": "954410dc78e91f42e31191df898aaed8a9fef6b7"
+          }
+        },
+        {
           "client_id": "312967968394-ol6fjn558babd49oc4tdmtj6ftdvt638.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

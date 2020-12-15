@@ -4,7 +4,9 @@ import 'package:history_quizz/models/facebook_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
 import 'package:provider/provider.dart';
 
@@ -16,11 +18,13 @@ class FacebookUser extends StatefulWidget {
 }
 
 class _FacebookUserState extends State<FacebookUser> {
-  @override
-  void initState() {
-    super.initState();
-    signInWithFacebook();
-  }
+  // @override
+  // void initState() {
+  //   setState(() {
+  //     isFacebookLogined = !isFacebookLogined;
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +49,28 @@ class _FacebookUserState extends State<FacebookUser> {
                   children: [
                     CircleAvatar(
                       radius: 50.0,
-                      backgroundImage: NetworkImage(
-                        userProfile["picture"]["data"]["url"],
-                      ),
+                      // backgroundImage: NetworkImage(
+                      //   userProfile["picture"]["data"]["url"],
+                      // ),
+                      backgroundImage: (isFacebookLogined)
+                          ? NetworkImage(
+                              userProfile["picture"]["data"]["url"],
+                            )
+                          : AssetImage('images/avatar_default.png'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
+                      // child: Text(
+                      //   'Welcome\n ${userProfile["name"]}',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(
+                      //       color: Theme.of(context).primaryColor,
+                      //       fontSize: 25.0),
+                      // ),
                       child: Text(
-                        'Welcome\n ${userProfile["name"]}',
+                        (isFacebookLogined)
+                            ? 'Welcome\n ${userProfile["name"]}'
+                            : 'Welcome bạn ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme
@@ -68,23 +86,53 @@ class _FacebookUserState extends State<FacebookUser> {
                         minWidth: 200.0,
                         child: RaisedButton(
                             onPressed: () {
-                              if (quizzdata.score > 3) {
+                              if (Provider
+                                  .of<QuizzData>(context, listen: false)
+                                  .score >
+                                  3) {
                                 showDialog(
                                     context: context,
-                                    builder: (_) => EndDialog(
+                                    builder: (_) =>
+                                        EndDialog(
                                           title: 'Xin lỗi',
                                           content:
-                                              'Bạn không thể nhận thêm điểm',
-                                          // backScreen: WelcomePage.id
+                                          'Bạn không thể nhận thêm điểm',
+                                          onTap: () {
+                                            newScore(
+                                              Score(
+                                                  score:
+                                                  '${Provider
+                                                      .of<QuizzData>(
+                                                      context, listen: false)
+                                                      .score}'),
+                                            );
+                                            Navigator.of(context)
+                                                .pushNamed(WelcomePage.id);
+                                          },
                                         ));
                               } else {
-                                quizzdata.score++;
+                                Provider
+                                    .of<QuizzData>(context, listen: false)
+                                    .score++;
                                 showDialog(
                                     context: context,
-                                    builder: (_) => EndDialog(
+                                    builder: (_) =>
+                                        EndDialog(
                                           title: 'Yeah',
                                           content: 'Tiếp tục nào',
                                           // backScreen: WelcomePage.id
+                                          onTap: () {
+                                            newScore(
+                                              Score(
+                                                  score:
+                                                  '${Provider
+                                                      .of<QuizzData>(
+                                                      context, listen: false)
+                                                      .score}'),
+                                            );
+                                            Navigator.of(context)
+                                                .pushNamed(WelcomePage.id);
+                                          },
                                         ));
                               }
                             },

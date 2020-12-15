@@ -11,6 +11,8 @@ final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 Map userProfile;
 
+bool isFacebookLogined = false;
+
 Future<Null> signInWithFacebook() async {
   final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
@@ -37,7 +39,7 @@ Future<Null> signInWithFacebook() async {
   }
 }
 
-Future<void> fSignOut() async {
+Future<void> signOutFacebook() async {
   await firebaseAuth.signOut();
   await facebookSignIn.logOut();
   print('Đã đăng xuất Facebook');

@@ -10,6 +10,7 @@ import 'package:history_quizz/models/user_score.dart';
 import 'package:history_quizz/screens/facebook_screen.dart';
 import 'package:history_quizz/screens/google_screen.dart';
 import 'package:history_quizz/screens/reset_screen.dart';
+import 'package:history_quizz/screens/welcome_screen.dart';
 import 'package:history_quizz/utils/score_data.dart';
 import 'package:history_quizz/widgets/drawer_list_titles.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +25,32 @@ class DrawerList extends StatefulWidget {
 }
 
 class _DrawerList extends State<DrawerList> {
-
   @override
   Widget build(BuildContext context) {
     Color pColor = Theme.of(context).primaryColor;
     return Consumer<QuizzData>(
       builder: (context, quizzdata, child) {
+        getUserImage() {
+          if (isGoogleSigned == true) {
+            return NetworkImage('${gUser.photoURL}');
+          } else if (isFacebookLogined == true) {
+            return NetworkImage(userProfile["picture"]["data"]["url"]);
+          } else {
+            return AssetImage('images/avatar_default.png');
+          }
+        }
+
+        ;
+        getUserName() {
+          if (isGoogleSigned == true) {
+            return 'Xin chào ${gUser.displayName}';
+          } else if (isFacebookLogined == true) {
+            return 'Xin chào ${(userProfile["name"])}';
+          } else {
+            return 'Xin chào bạn';
+          }
+        }
+
         return SafeArea(
           child: Container(
             height: double.infinity,
@@ -49,24 +70,13 @@ class _DrawerList extends State<DrawerList> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  // image: AssetImage('images/avatar.jpg'),
-                                  image: isSigned
-                                      ? NetworkImage('${gUser.photoURL}')
-                                      : AssetImage('images/avatar.jpg'),
-                                ),
-                                shape: BoxShape.circle,
-                              ),
+                            CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: getUserImage(),
                             ),
                             Padding(padding: EdgeInsets.only(top: 15.0)),
                             Text(
-                              isSigned
-                                  ? 'Xin chào ${gUser.displayName}'
-                                  : 'Xin chào bạn',
+                              getUserName(),
                               style: TextStyle(
                                   fontSize: 16.0, fontWeight: FontWeight.w500),
                             )
@@ -98,9 +108,30 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.facebookF,
                           titleText: 'Kết nối Facebook',
                           onClick: () {
-                            // signInWithFacebook();
-                            // _login();
-                            Navigator.of(context).pushNamed(FacebookUser.id);
+                            // setState(() {
+                            //   isGoogleSigned = true;
+                            // });
+                            if (isFacebookLogined == false) {
+                              signInWithFacebook();
+                              // isGoogleSigned = !isGoogleSigned;
+                              setState(() {
+                                isFacebookLogined = !isFacebookLogined;
+                              });
+                              Navigator.of(context).pushNamed(FacebookUser.id);
+                            }
+                            else {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) =>
+                                      EndDialog(
+                                        title: 'Xin lỗi',
+                                        content: 'Bạn không thể kết nối nữa',
+                                        onTap: () {
+                                          Navigator.of(context).pushNamed(
+                                              WelcomePage.id);
+                                        },
+                                      ));
+                            }
                           },
                         ),
                         DrawerListTitle(
@@ -108,8 +139,25 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.google,
                           titleText: 'Kết nối Google',
                           onClick: () {
-                            // signInWithGoogle();
-                            Navigator.of(context).pushNamed(GoogleUser.id);
+                            // isFacebookLogined = true;
+                            if (isGoogleSigned == false) {
+                              signInWithGoogle();
+                              // isGoogleSigned = !isGoogleSigned;
+                              Navigator.of(context).pushNamed(GoogleUser.id);
+                            }
+                            else {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) =>
+                                      EndDialog(
+                                        title: 'Xin lỗi',
+                                        content: 'Bạn không thể kết nối nữa',
+                                        onTap: () {
+                                          Navigator.of(context).pushNamed(
+                                              WelcomePage.id);
+                                        },
+                                      ));
+                            }
                           },
                         ),
                         DrawerListTitle(
@@ -122,16 +170,18 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.reply,
                           titleText: 'Chơi lại',
                           onClick: () {
-                            setState(() {
-                              quizzdata.resetQuizz();
-                              newScore(
-                                Score(
-                                    score:
-                                        '${Provider.of<QuizzData>(context, listen: false).score}'),
-                              );
-                              // Navigator.of(context).pushNamed(GoogleUser.id);
-                              // Navigator.of(context).pushNamed(Reset.id);
-                            });
+                            setState(
+                                  () {
+                                // quizzdata.resetQuizz();
+                                // newScore(
+                                //   Score(
+                                //       score:
+                                //           '${Provider.of<QuizzData>(context, listen: false).score}'),
+                                // );
+                                // Navigator.of(context).pushNamed(GoogleUser.id);
+                              },
+                            );
+                            Navigator.of(context).pushNamed(Reset.id);
                           },
                         ),
                         DrawerListTitle(
@@ -139,9 +189,12 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.signOutAlt,
                           titleText: 'Đăng xuất Google',
                           onClick: () {
+                            signOutGoogle();
                             setState(() {
-                              signOutGoogle();
+                              isGoogleSigned = !isGoogleSigned;
+                              isFacebookLogined = false;
                             });
+                            Navigator.of(context).pushNamed(WelcomePage.id);
                           },
                         ),
                         DrawerListTitle(
@@ -149,11 +202,12 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.signOutAlt,
                           titleText: 'Đăng xuất Facebook',
                           onClick: () {
-                            fSignOut();
-                            // deleteScore();
-                            // setState(() {
-                            //   signOutGoogle();
-                            // });
+                            signOutFacebook();
+                            setState(() {
+                              isFacebookLogined = !isFacebookLogined;
+                              isGoogleSigned = false;
+                            });
+                            Navigator.of(context).pushNamed(WelcomePage.id);
                           },
                         ),
                         DrawerListTitle(

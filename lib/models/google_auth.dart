@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 User gUser = FirebaseAuth.instance.currentUser;
-bool isSigned = false;
+bool isGoogleSigned = false;
+
 Future<User> signInWithGoogle() async {
   // Trigger the authentication flow
   final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
   print('googleUser: $googleUser');
-
 
   // Obtain the auth details from the request
   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -23,16 +23,17 @@ Future<User> signInWithGoogle() async {
   print('credential: $credential');
 
   UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
+  await FirebaseAuth.instance.signInWithCredential(credential);
   print('userCredential: $userCredential');
-  isSigned = true;
+  User user = userCredential.user;
+  // isGoogleSigned = true;
   // Once signed in, return the UserCredential
-  return userCredential.user;
+  return user;
 }
 
-Future<Null> signOutGoogle() async {
+Future<void> signOutGoogle() async {
   await FirebaseAuth.instance.signOut();
   await GoogleSignIn().signOut();
-  isSigned = false;
+  // isGoogleSigned = false;
   print('Đã đăng xuất');
 }
