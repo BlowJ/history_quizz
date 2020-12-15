@@ -21,14 +21,14 @@ class GoogleUser extends StatefulWidget {
 }
 
 class _GoogleUserState extends State<GoogleUser> {
-  @override
-  void initState() {
-    super.initState();
-    // signInWithGoogle();
-    setState(() {
-      isGoogleSigned = !isGoogleSigned;
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // signInWithGoogle();
+  //   setState(() {
+  //     isGoogleSigned = !isGoogleSigned;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +75,20 @@ class _GoogleUserState extends State<GoogleUser> {
                         height: 60.0,
                         minWidth: 200.0,
                         child: RaisedButton(
-                            onPressed: () {
-                              if (Provider
-                                  .of<QuizzData>(context, listen: false)
-                                  .score > 3) {
+                            onPressed: () async {
+                              await signInWithGoogle();
+                              setState(() {
+                                isGoogleSigned = !isGoogleSigned;
+                              });
+                              if (Provider.of<QuizzData>(context, listen: false)
+                                      .score >
+                                  3) {
                                 showDialog(
                                     context: context,
-                                    builder: (_) =>
-                                        EndDialog(
+                                    builder: (_) => EndDialog(
                                           title: 'Xin lỗi',
                                           content:
-                                          'Bạn không thể nhận thêm điểm',
+                                              'Bạn không thể nhận thêm điểm',
                                           onTap: () {
                                             newScore(
                                               Score(

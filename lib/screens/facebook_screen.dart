@@ -20,6 +20,7 @@ class FacebookUser extends StatefulWidget {
 class _FacebookUserState extends State<FacebookUser> {
   // @override
   // void initState() {
+  //   signInWithFacebook();
   //   setState(() {
   //     isFacebookLogined = !isFacebookLogined;
   //   });
@@ -85,15 +86,18 @@ class _FacebookUserState extends State<FacebookUser> {
                         height: 60.0,
                         minWidth: 200.0,
                         child: RaisedButton(
-                            onPressed: () {
-                              if (Provider
-                                  .of<QuizzData>(context, listen: false)
-                                  .score >
+                            onPressed: () async {
+                              await signInWithFacebook();
+                              setState(() {
+                                isFacebookLogined = !isFacebookLogined;
+                              });
+
+                              if (Provider.of<QuizzData>(context, listen: false)
+                                      .score >
                                   3) {
                                 showDialog(
                                     context: context,
-                                    builder: (_) =>
-                                        EndDialog(
+                                    builder: (_) => EndDialog(
                                           title: 'Xin lỗi',
                                           content:
                                           'Bạn không thể nhận thêm điểm',
@@ -136,6 +140,7 @@ class _FacebookUserState extends State<FacebookUser> {
                                         ));
                               }
                             },
+
                             onHighlightChanged: (value) => 2,
                             elevation: 12.0,
                             disabledElevation: 3.0,

@@ -112,14 +112,13 @@ class _DrawerList extends State<DrawerList> {
                             //   isGoogleSigned = true;
                             // });
                             if (isFacebookLogined == false) {
-                              signInWithFacebook();
+                              // signInWithFacebook();
                               // isGoogleSigned = !isGoogleSigned;
-                              setState(() {
-                                isFacebookLogined = !isFacebookLogined;
-                              });
+                              // setState(() {
+                              //   isFacebookLogined = !isFacebookLogined;
+                              // });
                               Navigator.of(context).pushNamed(FacebookUser.id);
-                            }
-                            else {
+                            } else {
                               showDialog(
                                   context: context,
                                   builder: (_) =>
@@ -141,7 +140,7 @@ class _DrawerList extends State<DrawerList> {
                           onClick: () {
                             // isFacebookLogined = true;
                             if (isGoogleSigned == false) {
-                              signInWithGoogle();
+                              // signInWithGoogle();
                               // isGoogleSigned = !isGoogleSigned;
                               Navigator.of(context).pushNamed(GoogleUser.id);
                             }
