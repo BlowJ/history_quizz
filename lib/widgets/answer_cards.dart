@@ -60,31 +60,32 @@ class _AnswerCardState extends State<AnswerCard> {
                 showDialog(
                     context: context,
                     builder: (_) => EndDialog(
-                      title: 'Toẹt vời',
-                      content: 'Bạn đã hết điểm ${smile}',
-                      onTap: () {
-                        print(getScore());
-                        Navigator.of(context).pushNamed(WelcomePage.id);
-                      },
-                    ));
+                          title: 'Toẹt vời',
+                          content: 'Bạn đã hết điểm ${smile}',
+                          onTap: () {
+                            print(getScore());
+                            Navigator.of(context).pushNamed(WelcomePage.id);
+                          },
+                        ));
               } else {
                 showDialog(
                     context: context,
-                    builder: (_) => EndDialog(
-                      title: 'Cảnh báo',
-                      content:
-                      'Bạn còn ${quizzdata.score} lần chọn ${smile}',
-                      onTap: () {
-                        newScore(
-                          Score(
-                              score:
-                              '${Provider
-                                  .of<QuizzData>(context, listen: false)
-                                  .score}'),
-                        );
-                        Navigator.pop(context);
-                      },
-                    ));
+                    builder: (_) =>
+                        EndDialog(
+                          title: 'Cảnh báo',
+                          content:
+                          'Bạn còn ${quizzdata.score} lần chọn ${smile}',
+                          onTap: () {
+                            newScore(
+                              Score(
+                                  score:
+                                  '${Provider
+                                      .of<QuizzData>(context, listen: false)
+                                      .score}'),
+                            );
+                            Navigator.pop(context);
+                          },
+                        ));
               }
             }
 
@@ -92,21 +93,22 @@ class _AnswerCardState extends State<AnswerCard> {
                 (widget.answer == await QuizzData().getCorrectAnswer())) {
               showDialog(
                   context: context,
-                  builder: (_) => EndDialog(
-                    title: 'Toẹt vời',
-                    content: 'Bạn đã hoàn thành thử thách ${smile}',
-                    onTap: () {
-                      newScore(
-                        Score(
-                            score:
-                            '${Provider
-                                .of<QuizzData>(context, listen: false)
-                                .score}'),
-                      );
-                      print(getScore());
-                      Navigator.of(context).pushNamed(WelcomePage.id);
-                    },
-                  ));
+                  builder: (_) =>
+                      EndDialog(
+                        title: 'Toẹt vời',
+                        content: 'Bạn đã hoàn thành thử thách ${smile}',
+                        onTap: () {
+                          newScore(
+                            Score(
+                                score:
+                                '${Provider
+                                    .of<QuizzData>(context, listen: false)
+                                    .score}'),
+                          );
+                          print(getScore());
+                          Navigator.of(context).pushNamed(WelcomePage.id);
+                        },
+                      ));
             }
           },
           child: Container(
@@ -117,7 +119,7 @@ class _AnswerCardState extends State<AnswerCard> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(28.0),
-              color: widget.isSelected ? Colors.green : Color(0xFF11182B),
+              color: widget.isSelected ? Color(0xFFFFFFFF) : Color(0xFF11182B),
               border: Border.all(
                 color: Color(0xFFFFFFFF),
                 width: 4.0,
@@ -127,7 +129,10 @@ class _AnswerCardState extends State<AnswerCard> {
               widget.answer,
               style: TextStyle(
                 fontSize: 20.0,
-                color: Color(0xFFFFFFFF),
+                color:
+                widget.isSelected ? Theme
+                    .of(context)
+                    .primaryColor : Color(0xFFFFFFFF),
                 fontWeight: FontWeight.w500,
                 shadows: [
                   Shadow(

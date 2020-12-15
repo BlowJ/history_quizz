@@ -51,6 +51,64 @@ class _DrawerList extends State<DrawerList> {
           }
         }
 
+        signInFacebook() {
+          if (isGoogleSigned == false) {
+            if (isFacebookLogined == false) {
+              Navigator.of(context).pushNamed(FacebookUser.id);
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (_) => EndDialog(
+                        title: 'Xin lỗi',
+                        content: 'Bạn không thể kết nối nữa',
+                        onTap: () {
+                          Navigator.of(context).pushNamed(WelcomePage.id);
+                        },
+                      ));
+            }
+          } else {
+            showDialog(
+                context: context,
+                builder: (_) => EndDialog(
+                      title: 'Xin lỗi',
+                      content: 'Bạn không thể kết nối nữa',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(WelcomePage.id);
+                      },
+                    ));
+          }
+        }
+
+        signInGoogle() {
+          if (isFacebookLogined == false) {
+            if (isGoogleSigned == false) {
+              // signInWithGoogle();
+              // isGoogleSigned = !isGoogleSigned;
+              Navigator.of(context).pushNamed(GoogleUser.id);
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (_) => EndDialog(
+                        title: 'Xin lỗi',
+                        content: 'Bạn không thể kết nối nữa',
+                        onTap: () {
+                          Navigator.of(context).pushNamed(WelcomePage.id);
+                        },
+                      ));
+            }
+          } else {
+            showDialog(
+                context: context,
+                builder: (_) => EndDialog(
+                      title: 'Xin lỗi',
+                      content: 'Bạn không thể kết nối nữa',
+                      onTap: () {
+                        Navigator.of(context).pushNamed(WelcomePage.id);
+                      },
+                    ));
+          }
+        }
+
         return SafeArea(
           child: Container(
             height: double.infinity,
@@ -108,29 +166,7 @@ class _DrawerList extends State<DrawerList> {
                           leadIcon: FontAwesomeIcons.facebookF,
                           titleText: 'Kết nối Facebook',
                           onClick: () {
-                            // setState(() {
-                            //   isGoogleSigned = true;
-                            // });
-                            if (isFacebookLogined == false) {
-                              // signInWithFacebook();
-                              // isGoogleSigned = !isGoogleSigned;
-                              // setState(() {
-                              //   isFacebookLogined = !isFacebookLogined;
-                              // });
-                              Navigator.of(context).pushNamed(FacebookUser.id);
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) =>
-                                      EndDialog(
-                                        title: 'Xin lỗi',
-                                        content: 'Bạn không thể kết nối nữa',
-                                        onTap: () {
-                                          Navigator.of(context).pushNamed(
-                                              WelcomePage.id);
-                                        },
-                                      ));
-                            }
+                            signInFacebook();
                           },
                         ),
                         DrawerListTitle(
@@ -139,24 +175,7 @@ class _DrawerList extends State<DrawerList> {
                           titleText: 'Kết nối Google',
                           onClick: () {
                             // isFacebookLogined = true;
-                            if (isGoogleSigned == false) {
-                              // signInWithGoogle();
-                              // isGoogleSigned = !isGoogleSigned;
-                              Navigator.of(context).pushNamed(GoogleUser.id);
-                            }
-                            else {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) =>
-                                      EndDialog(
-                                        title: 'Xin lỗi',
-                                        content: 'Bạn không thể kết nối nữa',
-                                        onTap: () {
-                                          Navigator.of(context).pushNamed(
-                                              WelcomePage.id);
-                                        },
-                                      ));
-                            }
+                            signInGoogle();
                           },
                         ),
                         DrawerListTitle(

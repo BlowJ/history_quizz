@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:history_quizz/models/facebook_auth.dart';
+import 'package:history_quizz/models/google_auth.dart';
+import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:history_quizz/screens/facebook_screen.dart';
+import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/widgets/endDialog.dart';
+import 'package:provider/provider.dart';
 import 'google_screen.dart';
 
 class Reset extends StatefulWidget {
@@ -16,6 +22,68 @@ class _ResetState extends State<Reset> {
   Widget build(BuildContext context) {
     Color pColor = Theme.of(context).primaryColor;
     Color bColor = Color(0xFFCED7EC);
+    loginFacebook() {
+      if (isGoogleSigned == false) {
+        if (isFacebookLogined == false) {
+          setState(() {
+            widget.isFacebookClicked = !widget.isFacebookClicked;
+          });
+          Navigator.of(context).pushNamed(FacebookUser.id);
+        } else {
+          showDialog(
+              context: context,
+              builder: (_) => EndDialog(
+                    title: 'Xin lỗi',
+                    content: 'Bạn không thể kết nối nữa',
+                    onTap: () {
+                      Navigator.of(context).pushNamed(WelcomePage.id);
+                    },
+                  ));
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) => EndDialog(
+                  title: 'Xin lỗi',
+                  content: 'Bạn không thể kết nối nữa',
+                  onTap: () {
+                    Navigator.of(context).pushNamed(WelcomePage.id);
+                  },
+                ));
+      }
+    }
+
+    loginGoogle() {
+      if (isFacebookLogined == false) {
+        if (isGoogleSigned == false) {
+          setState(() {
+            widget.isGoogleClicked = !widget.isGoogleClicked;
+          });
+          Navigator.of(context).pushNamed(FacebookUser.id);
+        } else {
+          showDialog(
+              context: context,
+              builder: (_) => EndDialog(
+                    title: 'Xin lỗi',
+                    content: 'Bạn không thể kết nối nữa',
+                    onTap: () {
+                      Navigator.of(context).pushNamed(WelcomePage.id);
+                    },
+                  ));
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) => EndDialog(
+                  title: 'Xin lỗi',
+                  content: 'Bạn không thể kết nối nữa',
+                  onTap: () {
+                    Navigator.of(context).pushNamed(WelcomePage.id);
+                  },
+                ));
+      }
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -44,11 +112,7 @@ class _ResetState extends State<Reset> {
                         width: 150,
                         child: FlatButton(
                           onPressed: () {
-                            setState(() {
-                              widget.isFacebookClicked =
-                                  !widget.isFacebookClicked;
-                            });
-                            Navigator.of(context).pushNamed(FacebookUser.id);
+                            loginFacebook();
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius:
@@ -71,10 +135,7 @@ class _ResetState extends State<Reset> {
                         width: 160,
                         child: FlatButton(
                           onPressed: () {
-                            setState(() {
-                              widget.isGoogleClicked = !widget.isGoogleClicked;
-                            });
-                            Navigator.of(context).pushNamed(GoogleUser.id);
+                            loginGoogle();
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius:
