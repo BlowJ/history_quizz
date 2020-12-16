@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:history_quizz/models/user_score.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:flutter/widgets.dart';
 
 const String db_name = "userScore.db";
 Database _database;
@@ -32,7 +31,6 @@ Future<void> newScore(Score newScore) async {
   await db.insert(
     'score_table',
     newScore.toMap(),
-    // conflictAlgorithm: ConflictAlgorithm.replace,
   );
 }
 

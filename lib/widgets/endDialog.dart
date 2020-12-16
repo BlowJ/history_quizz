@@ -1,11 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:emojis/emojis.dart';
-import 'package:emojis/emoji.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/screens/main_screen.dart';
-import 'package:history_quizz/screens/welcome_screen.dart';
-import 'package:history_quizz/widgets/answer_cards.dart';
-import 'package:provider/provider.dart';
 
 class EndDialog extends StatefulWidget {
   EndDialog({this.title, this.content, this.onTap});

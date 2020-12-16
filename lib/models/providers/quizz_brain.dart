@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:history_quizz/models/user_score.dart';
-import 'package:history_quizz/utils/score_data.dart';
+import 'package:history_quizz/models/utils/score_data.dart';
 
 class QuizzData extends ChangeNotifier {
   static final qData = FirebaseFirestore.instance;

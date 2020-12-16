@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/models/user_score.dart';
-import 'package:history_quizz/screens/main_screen.dart';
-import 'package:history_quizz/utils/score_data.dart';
+import 'package:history_quizz/models/providers/quizz_brain.dart';
+import 'package:history_quizz/models/utils/score_data.dart';
+import 'package:history_quizz/pages/main_screen.dart';
 import 'package:provider/provider.dart';
 
 class StartButton extends StatefulWidget {
@@ -26,13 +25,10 @@ class _StartButtonState extends State<StartButton> {
           builder: (context, quizzdata, child) {
             return GestureDetector(
               onTap: () async {
-                // newScore(
-                //   Score(
-                //       score:
-                //       '${Provider.of<QuizzData>(context, listen: false).score}'),
-                // );
-                // print(await getScore());
-                if (Provider.of<QuizzData>(context, listen: false).score >= 1) {
+                print('${snapshot.data.last.score}');
+                quizzdata.score = int.parse(snapshot.data.last.score);
+                print('${quizzdata.score}');
+                if (quizzdata.score >= 1) {
                   Navigator.pushNamed(context, StartGame.id);
                 }
               },
@@ -80,31 +76,6 @@ class _StartButtonState extends State<StartButton> {
                         color: Theme.of(context).primaryColor,
                       ),
                     )
-                    // Container(
-                    //   height: 50.0,
-                    //   width: 50.0,
-                    //   padding:
-                    //       EdgeInsets.only(left: 8.0),
-                    //   decoration: BoxDecoration(
-                    //       shape: BoxShape.rectangle,
-                    //       color: Theme.of(context).primaryColor,
-                    //       borderRadius:
-                    //           BorderRadius.all(
-                    //               Radius.circular(
-                    //                   30.0)),
-                    //     border: Border.all(
-                    //       color: Color(0xFFCED7EC),
-                    //       width: 3.0,
-                    //       style: BorderStyle.solid
-                    //     )
-                    //   ),
-                    //
-                    //   child: Icon(
-                    //     FontAwesomeIcons.caretRight,
-                    //     size: 40.0,
-                    //     color: Color(0xFFCED7EC),
-                    //   ),
-                    // )
                   ],
                 ),
               ),

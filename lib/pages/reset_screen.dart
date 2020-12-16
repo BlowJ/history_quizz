@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:history_quizz/models/facebook_auth.dart';
-import 'package:history_quizz/models/google_auth.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/screens/facebook_screen.dart';
-import 'package:history_quizz/screens/welcome_screen.dart';
+import 'package:history_quizz/pages/welcome_screen.dart';
+import 'package:history_quizz/services/auth/facebook_auth.dart';
+import 'package:history_quizz/services/auth/google_auth.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
-import 'package:provider/provider.dart';
+import 'facebook_screen.dart';
 import 'google_screen.dart';
 
 class Reset extends StatefulWidget {
@@ -59,7 +57,7 @@ class _ResetState extends State<Reset> {
           setState(() {
             widget.isGoogleClicked = !widget.isGoogleClicked;
           });
-          Navigator.of(context).pushNamed(FacebookUser.id);
+          Navigator.of(context).pushNamed(GoogleUser.id);
         } else {
           showDialog(
               context: context,

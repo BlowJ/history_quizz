@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:history_quizz/screens/facebook_screen.dart';
-import 'package:history_quizz/screens/google_screen.dart';
-import 'package:history_quizz/screens/main_screen.dart';
-import 'package:history_quizz/screens/reset_screen.dart';
-import 'package:history_quizz/screens/welcome_screen.dart';
-import 'package:history_quizz/widgets/question_cards.dart';
+import 'package:history_quizz/pages/facebook_screen.dart';
+import 'package:history_quizz/pages/google_screen.dart';
+import 'package:history_quizz/pages/main_screen.dart';
+import 'package:history_quizz/pages/reset_screen.dart';
+import 'package:history_quizz/pages/welcome_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:history_quizz/widgets/question_cards.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'models/providers/quizz_brain.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

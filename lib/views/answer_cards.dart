@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/models/providers/quizz_brain.dart';
 import 'package:history_quizz/models/user_score.dart';
-import 'package:history_quizz/screens/main_screen.dart';
-import 'package:history_quizz/screens/welcome_screen.dart';
-import 'package:history_quizz/utils/score_data.dart';
-import 'package:history_quizz/widgets/answer_list.dart';
+import 'package:history_quizz/models/utils/score_data.dart';
+import 'package:history_quizz/pages/welcome_screen.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
 import 'package:provider/provider.dart';
-import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
 
 class AnswerCard extends StatefulWidget {
@@ -119,9 +116,10 @@ class _AnswerCardState extends State<AnswerCard> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(28.0),
-              color: widget.isSelected ? Color(0xFFFFFFFF) : Color(0xFF11182B),
+              color: widget.isSelected ? Color(0xFFC8CEDF) : Color(0xFF11182B),
               border: Border.all(
-                color: Color(0xFFFFFFFF),
+                color: widget.isSelected ? Color(0xFFC8CEDF) : Color(
+                    0xFFFFFFFF),
                 width: 4.0,
               ),
             ),
@@ -129,18 +127,10 @@ class _AnswerCardState extends State<AnswerCard> {
               widget.answer,
               style: TextStyle(
                 fontSize: 20.0,
-                color:
-                widget.isSelected ? Theme
+                color: widget.isSelected ? Theme
                     .of(context)
                     .primaryColor : Color(0xFFFFFFFF),
                 fontWeight: FontWeight.w500,
-                shadows: [
-                  Shadow(
-                    blurRadius: 10.0,
-                    color: Colors.black,
-                    offset: Offset(1.0, 1.0),
-                  ),
-                ],
               ),
             ),
           ),

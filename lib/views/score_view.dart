@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/models/user_score.dart';
-import 'package:history_quizz/utils/score_data.dart';
+import 'package:history_quizz/models/providers/quizz_brain.dart';
+import 'package:history_quizz/models/utils/score_data.dart';
 import 'package:provider/provider.dart';
 
 class ScoreView extends StatefulWidget {
@@ -32,7 +31,6 @@ class _ScoreViewState extends State<ScoreView> {
                       ? quizzdata.score
                       : int.parse(snapshot.data.last.score);
 
-                  // quizzdata.score = int.parse(snapshot.data.last.score);
                   return Padding(
                     padding: EdgeInsets.only(top: 50.0),
                     child: Container(
@@ -63,10 +61,7 @@ class _ScoreViewState extends State<ScoreView> {
                     Padding(padding: EdgeInsets.only(top: 12.0)),
                     Text(
                       (yourScore >= 0) ? '${yourScore}' : '0',
-                      // (quizzdata.score >= 0) ? '${quizzdata.score}' : '0',
-                      // '${snapshot.data[0].score}',
-
-                      textAlign: TextAlign.center,
+                            textAlign: TextAlign.center,
                       style: GoogleFonts.lato(
                           fontSize: 33.0, fontWeight: FontWeight.w900),
                     ),

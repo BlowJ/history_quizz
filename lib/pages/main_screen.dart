@@ -1,23 +1,21 @@
 import 'dart:async';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:history_quizz/models/providers/quizz_brain.dart';
 import 'package:history_quizz/models/user_score.dart';
-import 'package:history_quizz/screens/welcome_screen.dart';
-import 'package:history_quizz/utils/score_data.dart';
-import 'package:history_quizz/widgets/answer_cards.dart';
+import 'package:history_quizz/models/utils/score_data.dart';
+import 'package:history_quizz/pages/welcome_screen.dart';
+import 'package:history_quizz/views/answer_cards.dart';
+import 'package:history_quizz/views/question_cards.dart';
 import 'package:history_quizz/widgets/answer_list.dart';
 import 'package:history_quizz/widgets/endDialog.dart';
-import 'package:history_quizz/widgets/question_cards.dart';
 import 'package:history_quizz/widgets/header.dart';
 import 'package:provider/provider.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
 
 class StartGame extends StatefulWidget {
   static const String id = 'main_screen';
 
-  // int index = 0;
   Timer timer;
   int startSec = QuizzData().sec;
   int startMin = QuizzData().min;
@@ -29,21 +27,6 @@ class StartGame extends StatefulWidget {
 class StartGameState extends State<StartGame> {
   final StartGame = FirebaseFirestore.instance.collection('quizz_bank');
 
-  // void startTimer() {
-  //   if (widget.timer != null) {
-  //     widget.timer.cancel();
-  //     widget.start = QuizzData().timer;
-  //   } else {
-  //     widget.timer = Timer.periodic(
-  //       const Duration(seconds: 1),
-  //       (Timer timer) => setState(
-  //         () {
-  //           checkTimer();
-  //         },
-  //       ),
-  //     );
-  //   }
-  // }
   void startTimer() {
     widget.timer = Timer.periodic(
       const Duration(seconds: 1),
@@ -116,12 +99,6 @@ class StartGameState extends State<StartGame> {
                       children: <Widget>[
                         Header(
                           time: '${widget.startMin} : ${widget.startSec}',
-                          // timeRemain: '${widget.startMin} : ${widget.startSec}',
-                          // lifeRemain: '${Provider.of<QuizzData>(context).score}'
-                          //     ,
-                          // lifeRemain: (start == 0 && quizzdata.score > 0)
-                          //     ? (quizzdata.loseScore).toString()
-                          //     : (quizzdata.score.toString()),
                         ),
 
                         QuestionCard(
@@ -131,9 +108,7 @@ class StartGameState extends State<StartGame> {
                         ),
 
                         Padding(padding: EdgeInsets.only(top: 35.0)),
-                        // Provider
-                        //     .of<QuizzData>(context)
-                        //     .answer[QuizzData.index],
+
                         AnswerList(
                           answerText1: AnswerCard(
                             answer: snapshot.data.data()['answer'][0],
