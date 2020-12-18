@@ -84,6 +84,11 @@ class StartGameState extends State<StartGame> {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
+          // FirebaseFirestore.instance.disableNetwork();
+          // FirebaseFirestore.instance.settings =
+          //     Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
+          // FirebaseFirestore.instance.settings =
+          //     Settings(persistenceEnabled: true);
           return Text("Đã xảy ra lỗi");
         }
         if (snapshot.hasData) {
