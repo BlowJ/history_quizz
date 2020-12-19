@@ -61,6 +61,12 @@ class _FacebookUserState extends State<FacebookUser> {
                     minWidth: 200.0,
                     child: RaisedButton(
                         onPressed: () async {
+                          if (Provider.of<QuizzData>(context, listen: false)
+                                  .score <
+                              0) {
+                            Provider.of<QuizzData>(context, listen: false)
+                                .score = 0;
+                          }
                           await signInWithFacebook();
                           setState(() {
                             isFacebookLogined = !isFacebookLogined;
@@ -72,37 +78,37 @@ class _FacebookUserState extends State<FacebookUser> {
                             showDialog(
                                 context: context,
                                 builder: (_) => EndDialog(
-                                      title: 'Xin lỗi',
-                                      content: 'Bạn không thể nhận thêm điểm',
-                                      onTap: () {
-                                        newScore(
-                                          Score(
-                                              score:
-                                                  '${Provider.of<QuizzData>(context, listen: false).score}'),
-                                        );
-                                        Navigator.of(context)
-                                            .pushNamed(WelcomePage.id);
-                                      },
-                                    ));
+                                  title: 'Xin lỗi',
+                                  content: 'Bạn không thể nhận thêm điểm',
+                                  onTap: () {
+                                    newScore(
+                                      Score(
+                                          score:
+                                          '${Provider.of<QuizzData>(context, listen: false).score}'),
+                                    );
+                                    Navigator.of(context)
+                                        .pushNamed(WelcomePage.id);
+                                  },
+                                ));
                           } else {
                             Provider.of<QuizzData>(context, listen: false)
                                 .score++;
                             showDialog(
                                 context: context,
                                 builder: (_) => EndDialog(
-                                      title: 'Yeah',
-                                      content: 'Tiếp tục nào',
-                                      // backScreen: WelcomePage.id
-                                      onTap: () {
-                                        newScore(
-                                          Score(
-                                              score:
-                                                  '${Provider.of<QuizzData>(context, listen: false).score}'),
-                                        );
-                                        Navigator.of(context)
-                                            .pushNamed(WelcomePage.id);
-                                      },
-                                    ));
+                                  title: 'Yeah',
+                                  content: 'Tiếp tục nào',
+                                  // backScreen: WelcomePage.id
+                                  onTap: () {
+                                    newScore(
+                                      Score(
+                                          score:
+                                          '${Provider.of<QuizzData>(context, listen: false).score}'),
+                                    );
+                                    Navigator.of(context)
+                                        .pushNamed(WelcomePage.id);
+                                  },
+                                ));
                           }
                         },
                         onHighlightChanged: (value) => 2,

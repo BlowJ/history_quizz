@@ -151,11 +151,6 @@ class _DrawerList extends State<DrawerList> {
                             ),
                             DrawerListTitle(
                               pColor: pColor,
-                              leadIcon: FontAwesomeIcons.info,
-                              titleText: 'Thông tin',
-                            ),
-                            DrawerListTitle(
-                              pColor: pColor,
                               leadIcon: FontAwesomeIcons.reply,
                               titleText: 'Chơi lại',
                               onClick: () {
@@ -179,6 +174,27 @@ class _DrawerList extends State<DrawerList> {
                                   });
                                   Navigator.of(context)
                                       .pushNamed(WelcomePage.id);
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => EndDialog(
+                                            title: ' ',
+                                            content: 'Bạn đã đăng xuất Google',
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushNamed(WelcomePage.id);
+                                            },
+                                          ));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => EndDialog(
+                                            title: 'Xin lỗi',
+                                            content: 'Bạn chưa kết nối Google',
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushNamed(WelcomePage.id);
+                                            },
+                                          ));
                                 }
                               },
                             ),
@@ -195,6 +211,32 @@ class _DrawerList extends State<DrawerList> {
                                   });
                                   Navigator.of(context)
                                       .pushNamed(WelcomePage.id);
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          EndDialog(
+                                            title: ' ',
+                                            content:
+                                            'Bạn đã đăng xuất Facebook',
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushNamed(WelcomePage.id);
+                                            },
+                                          ));
+                                }
+                                else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          EndDialog(
+                                            title: 'Xin lỗi',
+                                            content:
+                                            'Bạn chưa kết nối Facebook',
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushNamed(WelcomePage.id);
+                                            },
+                                          ));
                                 }
                               },
                             ),
