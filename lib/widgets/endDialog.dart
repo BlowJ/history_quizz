@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:emojis/emojis.dart';
-import 'package:emojis/emoji.dart';
-import 'package:history_quizz/screens/welcome_screen.dart';
 
-class EndDialog extends StatelessWidget {
-  const EndDialog({
-    Key key,
-    @required this.smile,
-  }) : super(key: key);
+class EndDialog extends StatefulWidget {
+  EndDialog({this.title, this.content, this.onTap});
 
-  final Emoji smile;
+  String title;
+  String content;
+  Function onTap;
 
+  @override
+  _EndDialogState createState() => _EndDialogState();
+}
+
+class _EndDialogState extends State<EndDialog> {
   @override
   Widget build(BuildContext context) {
     return new AlertDialog(
@@ -19,7 +20,7 @@ class EndDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15.0))),
       title: new Text(
-        "Khá lắm con đĩ $smile",
+        widget.title,
         style: TextStyle(
           fontSize: 26.0,
           fontWeight: FontWeight.w500,
@@ -35,26 +36,29 @@ class EndDialog extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       content: new Text(
-        "Cút mẹ mày đi chỗ khác chơi",
+        widget.content,
         style: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w500,
-          color: Theme.of(context).primaryColor,
+          color: Theme
+              .of(context)
+              .primaryColor,
         ),
         textAlign: TextAlign.center,
       ),
       actions: <Widget>[
         FlatButton(
+          onPressed: widget.onTap,
           child: Text(
             'OK',
             style: TextStyle(
                 fontSize: 19.0,
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).primaryColor),
+                color: Theme
+                    .of(context)
+                    .primaryColor),
           ),
-          onPressed: () {
-            Navigator.of(context).pushNamed(WelcomePage.id);
-          },
+
         )
       ],
     );

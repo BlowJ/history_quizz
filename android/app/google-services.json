@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "312967968394",
+    "firebase_url": "https://history-quizz-bd31f.firebaseio.com",
+    "project_id": "history-quizz-bd31f",
+    "storage_bucket": "history-quizz-bd31f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312967968394:android:f0f20847253e0b7c1d1f73",
+        "android_client_info": {
+          "package_name": "com.hoanglong2112.history_quizz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312967968394-l75v7d233orrgc79669l41modrrv4lqg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoanglong2112.history_quizz",
+            "certificate_hash": "954410dc78e91f42e31191df898aaed8a9fef6b7"
+          }
+        },
+        {
+          "client_id": "312967968394-ol6fjn558babd49oc4tdmtj6ftdvt638.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoanglong2112.history_quizz",
+            "certificate_hash": "89a9127dbef65378c248e383911ea2feb80e9ba6"
+          }
+        },
+        {
+          "client_id": "312967968394-vug3pjdmg84k7952ohfutr0009jvq8r1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGY-1oxwtzm-EJepUYwH8TTK7aZO7DpLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312967968394-vug3pjdmg84k7952ohfutr0009jvq8r1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "312967968394-ukfa3l22rg9up7rvu9nm0v92qhur5dj4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hoanglong2112.historyQuizz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

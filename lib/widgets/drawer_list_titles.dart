@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
-import 'package:history_quizz/screens/tien_su_screen.dart';
+import 'package:history_quizz/models/providers/quizz_brain.dart';
 import 'package:provider/provider.dart';
 
 class DrawerListTitle extends StatelessWidget {

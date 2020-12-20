@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:history_quizz/models/quizz_brain.dart';
+import 'package:history_quizz/models/providers/quizz_brain.dart';
 import 'package:provider/provider.dart';
 
 class QuestionCard extends StatelessWidget {

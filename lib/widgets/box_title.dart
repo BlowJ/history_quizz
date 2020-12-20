@@ -9,12 +9,12 @@ class BoxTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.0,
+      height: 70.0,
       width: 320.0,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(23.0),
-        color: Color(0xFF0E1321),
+        borderRadius: BorderRadius.circular(35.0),
+        color: Theme.of(context).primaryColor,
         border: Border.all(
           color: Color(0xFFFFFFFF),
           width: 3.0,
